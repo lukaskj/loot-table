@@ -6,15 +6,16 @@ import { Rarity } from "../Rarities";
 import { Slot } from "../Slots";
 import { Material } from "../Materials";
 import { Type } from "../Types";
+import { Attribute } from "../Attributes";
 
 export default class {
    private itemLevel: TypeMinMax = { min: 0, max: 100 };
    private items: Array<TypeChanceItem> = [];
-   private rarities: Array<TypeChance> = [];
-   private attributes: Array<TypeChance> = [];
-   private materials: Array<TypeChance> = [];
-   private slots: Array<TypeChance> = [];
-   private types: Array<TypeChance> = [];
+   private rarities: Array<TypeChance<Rarity>> = [];
+   private attributes: Array<TypeChance<Attribute>> = [];
+   private materials: Array<TypeChance<Material>> = [];
+   private slots: Array<TypeChance<Slot>> = [];
+   private types: Array<TypeChance<Type>> = [];
 
 
    private random: Random;
@@ -33,32 +34,34 @@ export default class {
       return this;
    }
 
-   public addRarity(rarity: TypeChance): this {
+   public addRarity(rarity: TypeChance<Rarity>): this {
       this.rarities.push(rarity);
       return this;
    }
 
-   public addAttribute(attribute: TypeChance): this {
-      this.attributes.push(attribute);
-      return this;
-   }
 
-   public addMaterial(material: TypeChance): this {
-      this.materials.push(material);
-      return this;
-   }
-
-   public addSlot(slot: TypeChance): this {
-      this.slots.push(slot);
-      return this;
-   }
-
-   public addType(type: TypeChance): this {
+   public addType(type: TypeChance<Type>): this {
       this.types.push(type);
       return this;
    }
 
-   private _getPropertyByChance<T extends Codeable>(propList: Array<TypeChance>, certainDrop?: boolean): T {
+   public addAttribute(attribute: TypeChance<Attribute>): this {
+      this.attributes.push(attribute);
+      return this;
+   }
+
+   public addMaterial(material: TypeChance<Material>): this {
+      this.materials.push(material);
+      return this;
+   }
+
+   public addSlot(slot: TypeChance<Slot>): this {
+      this.slots.push(slot);
+      return this;
+   }
+
+
+   private _getPropertyByChance<T extends Codeable>(propList: Array<TypeChance<T>>, certainDrop?: boolean): TypeChance<T> {
       const _propList = propList.sort((a: any, b: any) => b.chance - a.chance);
       for (let i = 0; i < _propList.length; i++) {
          // if (i == _propList.length - 1) {
@@ -67,10 +70,10 @@ export default class {
          const dropChance = this.random.double() * 100;
          // console.log("dropChance", dropChance, _propList[i].chance);
          if (_propList[i].chance >= dropChance) {
-            return _propList[i].property as T;
+            return _propList[i];
          }
       }
-      return _propList[0].property as T;
+      return _propList[0];
    }
 
    public dropItem(): Item {
@@ -81,18 +84,20 @@ export default class {
       item.setId(ID).setItemLevel(level);
 
       if (!!this.rarities.length) {
-         const rarity: Rarity = this._getPropertyByChance<Rarity>(this.rarities);
+         const rarity: Rarity = this._getPropertyByChance<Rarity>(this.rarities).property;
          item.setRarity(rarity);
       }
 
       if (!!this.slots.length) {
-         const slot: Slot = this._getPropertyByChance<Slot>(this.slots);
+         const slot: Slot = this._getPropertyByChance<Slot>(this.slots).property;
          item.setSlot(slot);
       }
 
       if (!!this.types.length) {
-         const type: Type = this._getPropertyByChance<Type>(this.types);
-         item.setType(type);
+         const type: TypeChance<Type> = this._getPropertyByChance<Type>(this.types);
+         item.setType(type.property);
+         const defaultAttr = item.getType().defaultAttribute;
+         item.setDefaultAttribute({ ...defaultAttr, value: this.random.range(type.value?.min || 0, type.value?.max || item.getItemLevel()) });
       }
 
       // if (!!this.materials.length) {
@@ -111,9 +116,9 @@ export type TypeMinMax = {
    max: number,
 }
 
-export type TypeChance = {
+export type TypeChance<T> = {
    chance: number,
-   property: Codeable,
+   property: T,
    value?: TypeMinMax,
 }
 

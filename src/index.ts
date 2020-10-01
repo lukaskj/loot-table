@@ -10,7 +10,7 @@ import Drop from './drop/Drop';
 const rnd = new Random();
 const item: Item = new Item();
 
-const drop: Drop = new Drop();
+const drop: Drop = new Drop('asdf');
 drop.setItemLevel({ min: 10, max: 50 });
 
 drop.addRarity({ chance: 55, property: Rarities.RarityCommon })
@@ -18,6 +18,7 @@ drop.addRarity({ chance: 55, property: Rarities.RarityCommon })
    .addRarity({ chance: 10, property: Rarities.RarityRare })
    .addRarity({ chance: 3, property: Rarities.RarityEpic })
    .addRarity({ chance: 0.1, property: Rarities.RarityLegendary })
+   .addType({ chance: 50, property: Types.TypeChest, value: { min: 1, max: 50 } })
 
 let i = 0;
 let d: Item;
