@@ -19,6 +19,7 @@ drop.addRarity({ chance: 55, property: Rarities.RarityCommon })
    .addRarity({ chance: 3, property: Rarities.RarityEpic })
    .addRarity({ chance: 0.1, property: Rarities.RarityLegendary })
    .addType({ chance: 50, property: Types.TypeChest, value: { min: 1, max: 50 } })
+   // .addMaterial({ chance: 12, property: Materials.MaterialCloth })
 
 let i = 0;
 let d: Item;

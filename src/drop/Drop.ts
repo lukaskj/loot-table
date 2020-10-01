@@ -100,13 +100,27 @@ export default class {
          item.setDefaultAttribute({ ...defaultAttr, value: this.random.range(type.value?.min || 0, type.value?.max || item.getItemLevel()) });
       }
 
-      const mergedMaterials = item.getType().materials;
-      console.log(mergedMaterials)
+      const itemMaterials: Array<Material> = item.getType().materials;
+      let mergedMaterials: Array<TypeChance<Material>> = [];
+      const materialsNotInDroptable: Array<TypeChance<Material>> = [];
+      // TODO randomize item materials
+      for (let index = 0; index < itemMaterials.length; index++) {
+         const itemMaterial = itemMaterials[index];
+         const itemMaterialInDropMaterial = this.materials?.find(i => i.property.code === itemMaterial.code);
+         if (!!itemMaterialInDropMaterial) {
+            mergedMaterials.push(itemMaterialInDropMaterial);
+         } else {
+            materialsNotInDroptable.push({ chance: 100 / itemMaterials.length, property: itemMaterial });
+         }
+      }
+      if (!mergedMaterials.length) {
+         mergedMaterials = materialsNotInDroptable;
+      }
 
-      // if (!!this.materials.length) {
-      //    const material = this._getPropertyByChance<Material>(this.materials);
-      //    item.setMaterial(material);
-      // }
+      if (!!mergedMaterials.length) {
+         const material: Material = this._getPropertyByChance<Material>(mergedMaterials).property;
+         item.setMaterial(material);
+      }
 
       return item;
    }
