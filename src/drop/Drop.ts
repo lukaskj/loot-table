@@ -100,6 +100,9 @@ export default class {
          item.setDefaultAttribute({ ...defaultAttr, value: this.random.range(type.value?.min || 0, type.value?.max || item.getItemLevel()) });
       }
 
+      const mergedMaterials = item.getType().materials;
+      console.log(mergedMaterials)
+
       // if (!!this.materials.length) {
       //    const material = this._getPropertyByChance<Material>(this.materials);
       //    item.setMaterial(material);
