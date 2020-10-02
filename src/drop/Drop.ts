@@ -1,6 +1,6 @@
 import Codeable from "../interfaces/Codeable"
 import Item from "../Item"
-import Random from "../rarity/utils/Random";
+import Random from "../utils/Random";
 import * as uuid from 'uuid';
 import { Rarity } from "../Rarities";
 import { Slot } from "../Slots";

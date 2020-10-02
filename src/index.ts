@@ -1,5 +1,5 @@
 import Item from './Item';
-import Random from './rarity/utils/Random';
+import Random from './utils/Random';
 import * as uuid from 'uuid';
 import * as Materials from './Materials';
 import * as Rarities from './Rarities';

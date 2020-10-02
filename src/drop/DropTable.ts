@@ -1,5 +1,5 @@
 import Item from "../Item";
-import Random from "../rarity/utils/Random";
+import Random from "../utils/Random";
 import Drop from "./Drop";
 
 export default class {

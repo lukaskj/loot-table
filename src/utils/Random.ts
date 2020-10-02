@@ -43,7 +43,7 @@ export default class {
    public range(min: number, max: number, inclusive: boolean = true) {
       min = Math.ceil(min || 0);
       max = Math.floor(max);
-      return Math.floor(this.randomFunction()() as any * (max - min + (!!inclusive ? 1 : 0)) + min);
+      return Math.floor((this.randomFunction()() as any) * (max - min + (!!inclusive ? 0 : 0)) + min);
    }
 
    public double(): number {
