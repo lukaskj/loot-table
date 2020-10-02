@@ -1,9 +1,11 @@
 import Item from './Item';
 import Random from './utils/Random';
 import * as uuid from 'uuid';
+import * as Attributes from './Attributes';
 import * as Materials from './Materials';
 import * as Rarities from './Rarities';
 import * as Types from './Types';
+import * as Slots from './Slots';
 import Drop from './drop/Drop';
 
 
@@ -19,7 +21,13 @@ drop.addRarity({ chance: 55, property: Rarities.RarityCommon })
    .addRarity({ chance: 3, property: Rarities.RarityEpic })
    .addRarity({ chance: 0.1, property: Rarities.RarityLegendary })
    .addType({ chance: 50, property: Types.TypeChest, value: { min: 1, max: 50 } })
-   // .addMaterial({ chance: 12, property: Materials.MaterialCloth })
+   .addMaterial({ chance: 12, property: Materials.MaterialCloth })
+   .addSlot({ chance: 20, property: Slots.SlotFoot })
+   .addAttribute({ chance: 50, property: Attributes.AttributeArmor, value: { min: 1, max: 50 } })
+   .addAttribute({ chance: 50, property: Attributes.AttributeAgility, value: { min: 1, max: 50 } })
+   .addAttribute({ chance: 50, property: Attributes.AttributeHealth, value: { min: 1, max: 50 } })
+   .addAttribute({ chance: 50, property: Attributes.AttributeIntelligence, value: { min: 1, max: 50 } })
+   .addAttribute({ chance: 50, property: Attributes.AttributeStrength, value: { min: 1, max: 50 } })
 
 let i = 0;
 let d: Item;

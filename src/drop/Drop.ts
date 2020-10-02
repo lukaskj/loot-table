@@ -103,7 +103,7 @@ export default class {
       const itemMaterials: Array<Material> = item.getType().materials;
       let mergedMaterials: Array<TypeChance<Material>> = [];
       const materialsNotInDroptable: Array<TypeChance<Material>> = [];
-      // TODO randomize item materials
+      // TODO randomize item materials order
       for (let index = 0; index < itemMaterials.length; index++) {
          const itemMaterial = itemMaterials[index];
          const itemMaterialInDropMaterial = this.materials?.find(i => i.property.code === itemMaterial.code);
@@ -120,6 +120,35 @@ export default class {
       if (!!mergedMaterials.length) {
          const material: Material = this._getPropertyByChance<Material>(mergedMaterials).property;
          item.setMaterial(material);
+      }
+
+      const itemTypeSlot: Slot = item.getType().slot;
+      if (!!itemTypeSlot) {
+         item.setSlot(itemTypeSlot);
+      } else if (!!this.slots.length) {
+         const slot: Slot = this._getPropertyByChance<Slot>(this.slots).property;
+         item.setSlot(slot);
+      }
+
+      const maxAttributeCount = item.getRarity().attributeCount;
+      const attributesToAdd: Array<TypeChance<Attribute>> = [];
+      for (const attr of this.attributes) {
+         if (item.getDefaultAttribute().code === attr.property.code) {
+            continue;
+         }
+         attributesToAdd.push(attr);
+      }
+
+      for (let i = 0; i < maxAttributeCount; i++) {
+         if (!attributesToAdd.length) {
+            break;
+         }
+         const attrChance: TypeChance<Attribute> = this._getPropertyByChance<Attribute>(attributesToAdd);
+         item.addAttribute({ ...attrChance.property, value: this.random.range(attrChance?.value?.min || 0, attrChance?.value?.max || item.getItemLevel()) });
+         const indx = attributesToAdd.indexOf(attrChance);
+         if (indx >= 0) {
+            attributesToAdd.splice(indx, 1);
+         }
       }
 
       return item;
