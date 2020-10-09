@@ -32,6 +32,6 @@ describe('Random tests', function () {
       const maxInclusive: number = random.max(100, true);
       expect(maxInclusive).not.toBeNull();
       expect(maxInclusive).not.toBeLessThan(0);
-      expect(maxInclusive).toBe(0);
+      expect(maxInclusive).toBe(3);
    });
 });
