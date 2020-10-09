@@ -98,36 +98,37 @@ export default class {
          item.setType(type.property);
          const defaultAttr = item.getType().defaultAttribute;
          item.setDefaultAttribute({ ...defaultAttr, value: this.random.range(type.value?.min || 0, type.value?.max || item.getItemLevel()) });
-      }
 
-      const itemMaterials: Array<Material> = item.getType().materials;
-      let mergedMaterials: Array<TypeChance<Material>> = [];
-      const materialsNotInDroptable: Array<TypeChance<Material>> = [];
-      // TODO randomize item materials order
-      for (let index = 0; index < itemMaterials.length; index++) {
-         const itemMaterial = itemMaterials[index];
-         const itemMaterialInDropMaterial = this.materials?.find(i => i.property.code === itemMaterial.code);
-         if (!!itemMaterialInDropMaterial) {
-            mergedMaterials.push(itemMaterialInDropMaterial);
-         } else {
-            materialsNotInDroptable.push({ chance: 100 / itemMaterials.length, property: itemMaterial });
+
+         const itemMaterials: Array<Material> = item.getType().materials;
+         let mergedMaterials: Array<TypeChance<Material>> = [];
+         const materialsNotInDroptable: Array<TypeChance<Material>> = [];
+         // TODO randomize item materials order
+         for (let index = 0; index < itemMaterials.length; index++) {
+            const itemMaterial = itemMaterials[index];
+            const itemMaterialInDropMaterial = this.materials?.find(i => i.property.code === itemMaterial.code);
+            if (!!itemMaterialInDropMaterial) {
+               mergedMaterials.push(itemMaterialInDropMaterial);
+            } else {
+               materialsNotInDroptable.push({ chance: 100 / itemMaterials.length, property: itemMaterial });
+            }
          }
-      }
-      if (!mergedMaterials.length) {
-         mergedMaterials = materialsNotInDroptable;
-      }
+         if (!mergedMaterials.length) {
+            mergedMaterials = materialsNotInDroptable;
+         }
 
-      if (!!mergedMaterials.length) {
-         const material: Material = this._getPropertyByChance<Material>(mergedMaterials).property;
-         item.setMaterial(material);
-      }
+         if (!!mergedMaterials.length) {
+            const material: Material = this._getPropertyByChance<Material>(mergedMaterials).property;
+            item.setMaterial(material);
+         }
 
-      const itemTypeSlot: Slot = item.getType().slot;
-      if (!!itemTypeSlot) {
-         item.setSlot(itemTypeSlot);
-      } else if (!!this.slots.length) {
-         const slot: Slot = this._getPropertyByChance<Slot>(this.slots).property;
-         item.setSlot(slot);
+         const itemTypeSlot: Slot = item.getType().slot;
+         if (!!itemTypeSlot) {
+            item.setSlot(itemTypeSlot);
+         } else if (!!this.slots.length) {
+            const slot: Slot = this._getPropertyByChance<Slot>(this.slots).property;
+            item.setSlot(slot);
+         }
       }
 
       const maxAttributeCount = item.getRarity().attributeCount;
