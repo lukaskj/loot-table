@@ -11,8 +11,12 @@ import Drop from './drop/Drop';
 
 const rnd = new Random();
 const item: Item = new Item();
+item.setId('1234')
+   .setItemLevel(20)
+   .setName('Test item');
 
 const drop: Drop = new Drop('asdf');
+drop.addItem({ chance: 100, item: item });
 drop.setItemLevel({ min: 10, max: 50 });
 
 drop.addRarity({ chance: 55, property: Rarities.RarityCommon })
@@ -29,12 +33,14 @@ drop.addRarity({ chance: 55, property: Rarities.RarityCommon })
    .addAttribute({ chance: 50, property: Attributes.AttributeIntelligence, value: { min: 1, max: 50 } })
    .addAttribute({ chance: 50, property: Attributes.AttributeStrength, value: { min: 1, max: 50 } })
 
-let i = 0;
-let d: Item;
-do {
-   d = drop.dropItem();
-   i++;
+console.log(drop.dropItem());
 
-} while (d.getRarity().code != Rarities.RarityEpic.code);
+// let i = 0;
+// let d: Item;
+// do {
+//    d = drop.dropItem();
+//    i++;
 
-console.log(i, d.toJson());
+// } while (d.getRarity().code != Rarities.RarityEpic.code);
+
+// console.log(i, d.toJson());

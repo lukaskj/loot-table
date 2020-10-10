@@ -62,7 +62,7 @@ export default class {
 
 
    private _getPropertyByChance<T extends Codeable>(propList: Array<TypeChance<T>>, certainDrop?: boolean): TypeChance<T> {
-      const _propList = propList.sort((a: any, b: any) => b.chance - a.chance);
+      const _propList = propList.sort((a: TypeChance<T>, b: TypeChance<T>) => b.chance - a.chance);
       for (let i = 0; i < _propList.length; i++) {
          // if (i == _propList.length - 1) {
          //    return _propList[i].property;
@@ -77,6 +77,26 @@ export default class {
    }
 
    public dropItem(): Item {
+      let itemChance: number = this.items.reduce((prev, cur) => prev + cur.chance, 0);
+      const randomItemChance = 100 - itemChance;
+      const chance = this.random.double() * 100;
+      if (chance < randomItemChance) {
+         return this.dropRandomItem();
+      } else {
+         // same logic as _getPropertyByChance
+         const _itemlist = this.items.sort((a: TypeChanceItem, b: TypeChanceItem) => b.chance - a.chance);
+         for (let i = 0; i < _itemlist.length; i++) {
+            const dropChance = this.random.double() * 100;
+            // console.log("dropChance", dropChance, _itemlist[i].chance);
+            if (_itemlist[i].chance >= dropChance) {
+               return _itemlist[i].item;
+            }
+         }
+         return null;
+      }
+   }
+
+   private dropRandomItem(): Item {
       const ID: string = uuid.v4();
       const item: Item = new Item();
       const level: number = this.random.range(this.itemLevel.min, this.itemLevel.max, true);
@@ -86,11 +106,6 @@ export default class {
       if (!!this.rarities.length) {
          const rarity: Rarity = this._getPropertyByChance<Rarity>(this.rarities).property;
          item.setRarity(rarity);
-      }
-
-      if (!!this.slots.length) {
-         const slot: Slot = this._getPropertyByChance<Slot>(this.slots).property;
-         item.setSlot(slot);
       }
 
       if (!!this.types.length) {
@@ -172,5 +187,5 @@ export type TypeChance<T> = {
 export type TypeChanceItem = {
    chance: number,
    item: Item,
-   level: TypeMinMax
+   level?: TypeMinMax
 }
