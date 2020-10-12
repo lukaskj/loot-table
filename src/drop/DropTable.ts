@@ -22,7 +22,7 @@ export default class {
       this.dropTables.push(drop);
    }
 
-   public drop(itemQtyMax?: number, mandatory: boolean = true): Array<Item> {
+   public drop(itemQtyMax: number = 1, mandatory: boolean = true): Array<Item> {
 
       const dropTableClone = [...this.getDropTables()].sort((a: TypeDropChance, b: TypeDropChance) => b.chance - a.chance);
 

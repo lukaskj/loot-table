@@ -80,9 +80,12 @@ export default class Item {
       return this._defaultAttribute;
    }
 
-   public addAttribute(stat: Attribute): Item {
+   public addAttribute(stat: Attribute, value?: number): Item {
       if (!this._attributes) {
          this._attributes = [];
+      }
+      if(!!value) {
+         stat.value = value;
       }
       this._attributes.push(stat);
       return this;
