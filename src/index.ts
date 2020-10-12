@@ -6,7 +6,7 @@ import * as Materials from './Materials';
 import * as Rarities from './Rarities';
 import * as Types from './Types';
 import * as Slots from './Slots';
-import Drop from './drop/Drop';
+import RandomItem from './drop/RandomItem';
 import DropTable from './drop/DropTable';
 
 
@@ -17,8 +17,8 @@ item.setId('1234')
    .setRarity(Rarities.RarityRare)
    .setName('Test item');
 
-const drop: Drop = new Drop('asdf');
-const drop2: Drop = new Drop('asdqq');
+const drop: RandomItem = new RandomItem('asdf');
+const drop2: RandomItem = new RandomItem('asdqq');
 // drop2.addItem({ chance: 100, item: item });
 drop.setItemLevel({ min: 10, max: 50 });
 

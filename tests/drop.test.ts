@@ -6,13 +6,13 @@ import * as Materials from '../src/Materials';
 import * as Rarities from '../src/Rarities';
 import * as Types from '../src/Types';
 import * as Slots from '../src/Slots';
-import Drop from '../src/drop/Drop';
+import RandomItem from '../src/drop/RandomItem';
 
 
 
-describe('Drop test', () => {
+describe('RandomItem test', () => {
    const SEED = 'drop-seed';
-   const drop = new Drop(SEED);
+   const drop = new RandomItem(SEED);
    test('if drop works', () => {
       drop.addRarity({ chance: 55, property: Rarities.RarityCommon })
          .addRarity({ chance: 32, property: Rarities.RarityUncommon })
@@ -44,7 +44,7 @@ describe('Drop test', () => {
    });
 
    test('if drop chance is correct', () => {
-      const _drop = new Drop(SEED);
+      const _drop = new RandomItem(SEED);
       _drop.addRarity({ chance: 100, property: Rarities.RarityRare });
       _drop.addType({ chance: 100, property: Types.TypeChest })
       const _item = _drop.dropItem();
@@ -54,7 +54,7 @@ describe('Drop test', () => {
    });
 
    test('if drop item is working', () => {
-      const _drop = new Drop(SEED);
+      const _drop = new RandomItem(SEED);
       _drop.addRarity({ chance: 100, property: Rarities.RarityRare });
       _drop.addType({ chance: 100, property: Types.TypeChest });
 

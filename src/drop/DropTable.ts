@@ -1,6 +1,6 @@
 import Item from "../Item";
 import Random from "../utils/Random";
-import Drop from "./Drop";
+import RandomItem from "./RandomItem";
 
 export default class {
    private dropTables: Array<TypeDropChance> = [];
@@ -38,7 +38,7 @@ export default class {
                if (table.drop instanceof Item) {
                   item = table.drop;
                } else {
-                  item = (table.drop as Drop).dropItem();
+                  item = (table.drop as RandomItem).dropItem();
                }
                result.push(item);
                break;
@@ -51,6 +51,6 @@ export default class {
 
 export type TypeDropChance = {
    chance: number,
-   drop: Drop | Item,
+   drop: RandomItem | Item,
 }
 
