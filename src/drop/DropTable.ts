@@ -14,28 +14,33 @@ export default class {
       return this.dropTables;
    }
 
+   public addItem(item: TypeDropChance) {
+      this.addDrop(item);
+   }
+
    public addDrop(drop: TypeDropChance) {
       this.dropTables.push(drop);
    }
 
    public drop(itemQtyMax?: number, mandatory: boolean = true): Array<Item> {
 
-      const dropTableClone = this.getDropTables().sort((a: TypeDropChance, b: TypeDropChance) => b.chance - a.chance);
+      const dropTableClone = [...this.getDropTables()].sort((a: TypeDropChance, b: TypeDropChance) => b.chance - a.chance);
 
       const result: Array<Item> = [];
 
       for (let qty = 0; qty < itemQtyMax; qty++) {
          const roll: number = this.random.double() * 100;
-         console.log(roll);
          for (let i = 0; i < dropTableClone.length; i++) {
-            const table = dropTableClone[i];
-            if (table.chance >= roll) {
-               result.push(table.drop.dropItem());
-               break;
-            }
-            // check mandatory item
-            if (mandatory && i == dropTableClone.length - 1) {
-               result.push(table.drop.dropItem());
+            const isMandatoryAndLastDrop: boolean = (mandatory && i == dropTableClone.length - 1);
+            const table = isMandatoryAndLastDrop ? dropTableClone[0] : dropTableClone[i];
+            if (table.chance >= roll || isMandatoryAndLastDrop) {
+               let item = null;
+               if (table.drop instanceof Item) {
+                  item = table.drop;
+               } else {
+                  item = (table.drop as Drop).dropItem();
+               }
+               result.push(item);
                break;
             }
          }
@@ -46,6 +51,6 @@ export default class {
 
 export type TypeDropChance = {
    chance: number,
-   drop: Drop,
+   drop: Drop | Item,
 }
 

@@ -77,6 +77,7 @@ export default class {
    }
 
    public dropItem(): Item {
+      return this.dropRandomItem();
       let itemChance: number = this.items.reduce((prev, cur) => prev + cur.chance, 0);
       const randomItemChance = 100 - itemChance;
       const chance = this.random.double() * 100;

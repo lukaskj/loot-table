@@ -14,11 +14,12 @@ const rnd = new Random();
 const item: Item = new Item();
 item.setId('1234')
    .setItemLevel(20)
+   .setRarity(Rarities.RarityRare)
    .setName('Test item');
 
 const drop: Drop = new Drop('asdf');
 const drop2: Drop = new Drop('asdqq');
-drop2.addItem({ chance: 100, item: item });
+// drop2.addItem({ chance: 100, item: item });
 drop.setItemLevel({ min: 10, max: 50 });
 
 drop.addRarity({ chance: 55, property: Rarities.RarityCommon })
@@ -37,7 +38,8 @@ drop.addRarity({ chance: 55, property: Rarities.RarityCommon })
 
 const droptable: DropTable = new DropTable('table');
 droptable.addDrop({ chance: 10, drop: drop });
-droptable.addDrop({ chance: 40, drop: drop2 });
+// droptable.addDrop({ chance: 40, drop: drop2 });
+droptable.addItem({ chance: 0, drop: item });
 
 
 console.log(droptable.drop(2, false));
