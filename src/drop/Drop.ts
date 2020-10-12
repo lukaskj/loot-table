@@ -86,9 +86,9 @@ export default class {
          // same logic as _getPropertyByChance
          const _itemlist = this.items.sort((a: TypeChanceItem, b: TypeChanceItem) => b.chance - a.chance);
          for (let i = 0; i < _itemlist.length; i++) {
-            const dropChance = this.random.double() * 100;
-            // console.log("dropChance", dropChance, _itemlist[i].chance);
-            if (_itemlist[i].chance >= dropChance) {
+            const roll = this.random.double() * 100;
+            // console.log("roll", roll, _itemlist[i].chance);
+            if (_itemlist[i].chance >= roll) {
                return _itemlist[i].item;
             }
          }

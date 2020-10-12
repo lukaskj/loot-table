@@ -7,6 +7,7 @@ import * as Rarities from './Rarities';
 import * as Types from './Types';
 import * as Slots from './Slots';
 import Drop from './drop/Drop';
+import DropTable from './drop/DropTable';
 
 
 const rnd = new Random();
@@ -16,7 +17,8 @@ item.setId('1234')
    .setName('Test item');
 
 const drop: Drop = new Drop('asdf');
-drop.addItem({ chance: 100, item: item });
+const drop2: Drop = new Drop('asdqq');
+drop2.addItem({ chance: 100, item: item });
 drop.setItemLevel({ min: 10, max: 50 });
 
 drop.addRarity({ chance: 55, property: Rarities.RarityCommon })
@@ -33,7 +35,12 @@ drop.addRarity({ chance: 55, property: Rarities.RarityCommon })
    .addAttribute({ chance: 50, property: Attributes.AttributeIntelligence, value: { min: 1, max: 50 } })
    .addAttribute({ chance: 50, property: Attributes.AttributeStrength, value: { min: 1, max: 50 } })
 
-console.log(drop.dropItem());
+const droptable: DropTable = new DropTable('table');
+droptable.addDrop({ chance: 10, drop: drop });
+droptable.addDrop({ chance: 40, drop: drop2 });
+
+
+console.log(droptable.drop(2, false));
 
 // let i = 0;
 // let d: Item;
