@@ -29,7 +29,7 @@ export default class {
       return this;
    }
 
-   public addItem(item: TypeChanceItem): this {
+   private addItem(item: TypeChanceItem): this {
       this.items.push(item);
       return this;
    }

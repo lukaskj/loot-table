@@ -30,6 +30,7 @@ export default class {
 
       for (let qty = 0; qty < itemQtyMax; qty++) {
          const roll: number = this.random.double() * 100;
+
          for (let i = 0; i < dropTableClone.length; i++) {
             const isMandatoryAndLastDrop: boolean = (mandatory && i == dropTableClone.length - 1);
             const table = isMandatoryAndLastDrop ? dropTableClone[0] : dropTableClone[i];
@@ -39,6 +40,9 @@ export default class {
                   item = table.drop;
                } else {
                   item = (table.drop as RandomItem).dropItem();
+               }
+               if (!!item) {
+                  item.setRoll(roll);
                }
                result.push(item);
                break;

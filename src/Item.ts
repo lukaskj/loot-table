@@ -15,6 +15,7 @@ export default class Item {
    private _defaultAttribute: Attribute;
    private _slot: Slot;
    private _attributes: Array<Attribute>;
+   private _roll: number;
 
 
    public setId(id: string): Item {
@@ -84,7 +85,7 @@ export default class Item {
       if (!this._attributes) {
          this._attributes = [];
       }
-      if(!!value) {
+      if (!!value) {
          stat.value = value;
       }
       this._attributes.push(stat);
@@ -101,7 +102,7 @@ export default class Item {
    }
 
    public toJson(): any {
-      return {
+      const json: any = {
          id: this.getId(),
          code: this.getCode(),
          name: this.getName(),
@@ -113,6 +114,10 @@ export default class Item {
          attribute: this.getDefaultAttribute(),
          attributes: this.getAttributes(),
       }
+      if (this._roll != null) {
+         json.roll = this._roll;
+      }
+      return json;
    }
 
    public setName(name: string): Item {
@@ -127,5 +132,14 @@ export default class Item {
 
    public getCode(): string {
       return this._code;
+   }
+
+   public setRoll(roll: number): Item {
+      this._roll = roll;
+      return this;
+   }
+
+   public getRoll(): number {
+      return this._roll;
    }
 }
