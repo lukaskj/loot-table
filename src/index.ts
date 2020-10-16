@@ -9,47 +9,14 @@ import * as Slots from './Slots';
 import RandomItem from './drop/RandomItem';
 import DropTable from './drop/DropTable';
 
-
-const rnd = new Random();
-const item: Item = new Item();
-item.setId('1234')
-   .setItemLevel(20)
-   .setRarity(Rarities.RarityRare)
-   .setName('Test item');
-
-const drop: RandomItem = new RandomItem('asdf');
-const drop2: RandomItem = new RandomItem('asdqq');
-// drop2.addItem({ chance: 100, item: item });
-drop.setItemLevel({ min: 10, max: 50 });
-
-drop.addRarity({ chance: 55, property: Rarities.RarityCommon })
-   .addRarity({ chance: 32, property: Rarities.RarityUncommon })
-   .addRarity({ chance: 10, property: Rarities.RarityRare })
-   .addRarity({ chance: 3, property: Rarities.RarityEpic })
-   .addRarity({ chance: 0.1, property: Rarities.RarityLegendary })
-   .addType({ chance: 50, property: Types.TypeChest, value: { min: 1, max: 50 } })
-   .addMaterial({ chance: 12, property: Materials.MaterialCloth })
-   .addSlot({ chance: 20, property: Slots.SlotFoot })
-   .addAttribute({ chance: 50, property: Attributes.AttributeArmor, value: { min: 1, max: 50 } })
-   .addAttribute({ chance: 50, property: Attributes.AttributeAgility, value: { min: 1, max: 50 } })
-   .addAttribute({ chance: 50, property: Attributes.AttributeHealth, value: { min: 1, max: 50 } })
-   .addAttribute({ chance: 50, property: Attributes.AttributeIntelligence, value: { min: 1, max: 50 } })
-   .addAttribute({ chance: 50, property: Attributes.AttributeStrength, value: { min: 1, max: 50 } })
-
-const droptable: DropTable = new DropTable('table');
-droptable.addDrop({ chance: 10, drop: drop });
-// droptable.addDrop({ chance: 40, drop: drop2 });
-droptable.addItem({ chance: 0, drop: item });
-
-
-console.log(droptable.drop(2, false));
-
-// let i = 0;
-// let d: Item;
-// do {
-//    d = drop.dropItem();
-//    i++;
-
-// } while (d.getRarity().code != Rarities.RarityEpic.code);
-
-// console.log(i, d.toJson());
+export {
+   Item,
+   RandomItem,
+   DropTable,
+   Rarities,
+   Attributes,
+   Types,
+   Slots,
+   Materials,
+   Random,
+}
