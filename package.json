@@ -1,14 +1,19 @@
 {
    "name": "random-item-generator",
    "version": "1.0.0",
-   "main": "index.js",
+   "private": true,
    "license": "MIT",
+   "main": "dist/index.js",
+   "types": "dist/index.d.ts",
    "scripts": {
       "start": "ts-node src/index.ts",
       "build": "tsc",
-      "test": "jest",
+   "test": "jest",
       "coverage": "jest --coverage"
    },
+   "files": [
+      "dist/**/*"
+   ],
    "devDependencies": {
       "@types/jest": "^26.0.14",
       "@types/seedrandom": "^2.4.28",
@@ -17,9 +22,7 @@
       "ts-jest": "^26.4.1",
       "ts-loader": "^8.0.3",
       "ts-node": "^9.0.0",
-      "typescript": "^4.0.2",
-      "webpack": "^4.44.1",
-      "webpack-cli": "^3.3.12"
+      "typescript": "^4.0.2"
    },
    "dependencies": {
       "seedrandom": "^3.0.5",

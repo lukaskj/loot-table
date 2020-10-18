@@ -15,6 +15,7 @@
       "esModuleInterop": false,
       "declaration": true,
       "declarationMap": true,
+      
    },
    "include": [
       "src/**/*"

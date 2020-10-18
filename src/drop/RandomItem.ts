@@ -29,35 +29,50 @@ export default class {
       return this;
    }
 
-   private addItem(item: TypeChanceItem): this {
-      this.items.push(item);
-      return this;
-   }
-
-   public addRarity(rarity: TypeChance<Rarity>): this {
+   public _addRarity(rarity: TypeChance<Rarity>): this {
       this.rarities.push(rarity);
       return this;
    }
 
+   public addRarity(rarity: Rarity, chance: number): this {
+      return this._addRarity({ chance, property: rarity });
+   }
 
-   public addType(type: TypeChance<Type>): this {
+
+   public _addType(type: TypeChance<Type>): this {
       this.types.push(type);
       return this;
    }
 
-   public addAttribute(attribute: TypeChance<Attribute>): this {
+   public addType(type: Type, chance: number, value?: number, maxValue?: number): this {
+      return this._addType({ chance: chance, property: type, value: { min: value, max: maxValue || value } } as TypeChance<Type>);
+   }
+
+   public _addAttribute(attribute: TypeChance<Attribute>): this {
       this.attributes.push(attribute);
       return this;
    }
 
-   public addMaterial(material: TypeChance<Material>): this {
+   public addAttribute(attribute: Attribute, chance: number, value?: number, maxValue?: number): this {
+      return this._addAttribute({ chance, property: attribute, value: { min: value, max: maxValue || value } });
+   }
+
+   public _addMaterial(material: TypeChance<Material>): this {
       this.materials.push(material);
       return this;
    }
 
-   public addSlot(slot: TypeChance<Slot>): this {
+   public addMaterial(material: Material, chance: number): this {
+      return this._addMaterial({ chance, property: material });
+   }
+
+   public _addSlot(slot: TypeChance<Slot>): this {
       this.slots.push(slot);
       return this;
+   }
+
+   public addSlot(slot: Slot, chance: number): this {
+      return this._addSlot({ chance, property: slot });
    }
 
 

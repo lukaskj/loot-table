@@ -39,10 +39,10 @@ describe('DropTable test', () => {
 
    test('DropTable with random item', () => {
       const drop: RandomItem = new RandomItem('random seed');
-      drop.addType({ chance: 100, property: Types.TypeShoulder });
-      drop.addMaterial({ chance: 100, property: Materials.MaterialCloth });
-      drop.addSlot({ chance: 100, property: Slots.SlotShoulder });
-      drop.addRarity({ chance: 100, property: Rarities.RarityRare });
+      drop.addType(Types.TypeShoulder, 100);
+      drop.addMaterial(Materials.MaterialCloth, 100);
+      drop.addSlot(Slots.SlotShoulder, 100);
+      drop.addRarity(Rarities.RarityRare, 100);
       drop.setItemLevel({ min: 20, max: 20 });
 
       dropTable.addDrop({ chance: 60, drop: drop });

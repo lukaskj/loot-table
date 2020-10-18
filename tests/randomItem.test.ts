@@ -14,19 +14,19 @@ describe('RandomItem test', () => {
    const SEED = 'drop-seed';
    const drop = new RandomItem(SEED);
    test('if drop works', () => {
-      drop.addRarity({ chance: 55, property: Rarities.RarityCommon })
-         .addRarity({ chance: 32, property: Rarities.RarityUncommon })
-         .addRarity({ chance: 10, property: Rarities.RarityRare })
-         .addRarity({ chance: 3, property: Rarities.RarityEpic })
-         .addRarity({ chance: 0.1, property: Rarities.RarityLegendary })
-         .addType({ chance: 50, property: Types.TypeChest, value: { min: 1, max: 50 } })
-         .addMaterial({ chance: 12, property: Materials.MaterialCloth })
-         .addSlot({ chance: 20, property: Slots.SlotFoot })
-         .addAttribute({ chance: 50, property: Attributes.AttributeArmor, value: { min: 1, max: 50 } })
-         .addAttribute({ chance: 50, property: Attributes.AttributeAgility, value: { min: 1, max: 50 } })
-         .addAttribute({ chance: 50, property: Attributes.AttributeHealth, value: { min: 1, max: 50 } })
-         .addAttribute({ chance: 50, property: Attributes.AttributeIntelligence, value: { min: 1, max: 50 } })
-         .addAttribute({ chance: 50, property: Attributes.AttributeStrength, value: { min: 1, max: 50 } });
+      drop.addRarity(Rarities.RarityCommon, 55)
+         .addRarity(Rarities.RarityUncommon, 32)
+         .addRarity(Rarities.RarityRare, 10)
+         .addRarity(Rarities.RarityEpic, 3)
+         .addRarity(Rarities.RarityLegendary, 0)
+         .addType(Types.TypeChest, 50, 1, 50)
+         .addMaterial(Materials.MaterialCloth, 12)
+         .addSlot(Slots.SlotFoot, 20)
+         .addAttribute(Attributes.AttributeArmor, 50, 1, 50)
+         .addAttribute(Attributes.AttributeAgility, 50, 1, 50)
+         .addAttribute(Attributes.AttributeHealth, 50, 1, 50)
+         .addAttribute(Attributes.AttributeIntelligence, 50, 1, 50)
+         .addAttribute(Attributes.AttributeStrength, 50, 1, 50);
 
       const item = drop.dropItem();
 
@@ -45,8 +45,8 @@ describe('RandomItem test', () => {
 
    test('if drop chance is correct', () => {
       const _drop = new RandomItem(SEED);
-      _drop.addRarity({ chance: 100, property: Rarities.RarityRare });
-      _drop.addType({ chance: 100, property: Types.TypeChest })
+      _drop.addRarity(Rarities.RarityRare, 100);
+      _drop.addType(Types.TypeChest, 100)
       const _item = _drop.dropItem();
 
       expect(_item.getRarity()).toBe(Rarities.RarityRare);

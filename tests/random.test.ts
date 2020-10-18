@@ -34,4 +34,11 @@ describe('Random tests', function () {
       expect(maxInclusive).not.toBeLessThan(0);
       expect(maxInclusive).toBe(3);
    });
+
+   test('random string', () => {
+      const random: Random = new Random();
+      const randomString: string = random.string(6);
+      expect(randomString).not.toBeNull();
+      expect(randomString.length).toBe(6);
+   });
 });
