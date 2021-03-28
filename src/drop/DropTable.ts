@@ -2,7 +2,7 @@ import Item from "../Item";
 import Random from "../utils/Random";
 import RandomItem from "./RandomItem";
 
-export default class {
+export default class Droptable {
    private dropTables: Array<TypeDropChance> = [];
    private random: Random;
 
@@ -14,12 +14,14 @@ export default class {
       return this.dropTables;
    }
 
-   public addItem(item: TypeDropChance) {
+   public addItem(item: TypeDropChance): Droptable {
       this.addDrop(item);
+      return this;
    }
 
-   public addDrop(drop: TypeDropChance) {
+   public addDrop(drop: TypeDropChance): Droptable {
       this.dropTables.push(drop);
+      return this;
    }
 
    public drop(itemQtyMax: number = 1, mandatory: boolean = true): Array<Item> {
@@ -41,7 +43,7 @@ export default class {
                } else {
                   item = (table.drop as RandomItem).dropItem();
                }
-               if (!!item) {
+               if (item) {
                   item.setRoll(roll);
                }
                result.push(item);
@@ -56,5 +58,5 @@ export default class {
 export type TypeDropChance = {
    chance: number,
    drop: RandomItem | Item,
-}
+};
 

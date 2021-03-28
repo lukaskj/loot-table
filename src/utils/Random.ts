@@ -1,9 +1,11 @@
-import { alea, xor128 } from 'seedrandom';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { alea, xor128 } from "seedrandom";
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 type RandomIntOpt = {
    seed?: string,
    inclusive?: boolean,
-}
+};
 
 export default class {
    private seed: string;
@@ -15,15 +17,16 @@ export default class {
 
    private randomFunction(): () => number {
       if (!this.rndFnc) {
+         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
          // @ts-ignore
-         this.rndFnc = !!this.seed ? new alea(this.seed).double : Math.random;
+         this.rndFnc = this.seed ? new alea(this.seed).double : Math.random;
       }
       return this.rndFnc;
    }
 
    public string(length: number): string {
-      let result = '';
-      const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+      let result = "";
+      const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
       const charactersLength = characters.length;
 
 
@@ -36,14 +39,14 @@ export default class {
 
    }
 
-   public max(max: number, inclusive?: boolean) {
+   public max(max: number, inclusive?: boolean): number {
       return this.range(0, max, inclusive);
    }
 
-   public range(min: number, max: number, inclusive: boolean = true) {
+   public range(min: number, max: number, inclusive: boolean = true): number {
       min = Math.ceil(min || 0);
       max = Math.floor(max);
-      return Math.floor((this.randomFunction()() as any) * (max - min + (!!inclusive ? 0 : 0)) + min);
+      return Math.floor((this.randomFunction()() as never) * (max - min + (inclusive ? 0 : 0)) + min);
    }
 
    public double(): number {

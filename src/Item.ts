@@ -18,13 +18,54 @@ export default class Item {
    private _roll: number;
 
 
+   public get id(): string {
+      return this._id;
+   }
+
+   public get name(): string {
+      return this._name;
+   }
+
+   public get code(): string {
+      return this._code;
+   }
+
+   public get itemLevel(): number {
+      return this._itemLevel;
+   }
+
+   public get type(): Type {
+      return this._type;
+   }
+
+   public get material(): Material {
+      return this._material;
+   }
+
+   public get rarity(): Rarity {
+      return this._rarity;
+   }
+
+   public get defaultAttribute(): Attribute {
+      return this._defaultAttribute;
+   }
+
+   public get slot(): Slot {
+      return this._slot;
+   }
+
+   public get attributes(): Array<Attribute> {
+      return this._attributes;
+   }
+
+   public get roll(): number {
+      return this._roll;
+   }
+
+
    public setId(id: string): Item {
       this._id = id;
       return this;
-   }
-
-   public getId(): string {
-      return this._id;
    }
 
    public setSlot(slot: Slot): Item {
@@ -32,17 +73,9 @@ export default class Item {
       return this;
    }
 
-   public getSlot(): Slot {
-      return this._slot;
-   }
-
    public setRarity(rarity: Rarity): Item {
       this._rarity = rarity;
       return this;
-   }
-
-   public getRarity(): Rarity {
-      return this._rarity;
    }
 
    public setMaterial(Material: Material): Item {
@@ -50,17 +83,9 @@ export default class Item {
       return this;
    }
 
-   public getMaterial(): Material {
-      return this._material;
-   }
-
    public setItemLevel(itemLevel: number): Item {
       this._itemLevel = itemLevel;
       return this;
-   }
-
-   public getItemLevel(): number {
-      return this._itemLevel;
    }
 
    public setType(type: Type): Item {
@@ -68,24 +93,16 @@ export default class Item {
       return this;
    }
 
-   public getType(): Type {
-      return this._type;
-   }
-
-   public setDefaultAttribute(stat: Attribute) {
+   public setDefaultAttribute(stat: Attribute): Item {
       this._defaultAttribute = stat;
       return this;
-   }
-
-   public getDefaultAttribute(): Attribute {
-      return this._defaultAttribute;
    }
 
    public addAttribute(stat: Attribute, value?: number): Item {
       if (!this._attributes) {
          this._attributes = [];
       }
-      if (!!value) {
+      if (value) {
          stat.value = value;
       }
       this._attributes.push(stat);
@@ -95,29 +112,6 @@ export default class Item {
    public setAttributes(stats: Array<Attribute>): Item {
       this._attributes = stats;
       return this;
-   }
-
-   public getAttributes(): Array<Attribute> {
-      return this._attributes || [];
-   }
-
-   public toJson(): any {
-      const json: any = {
-         id: this.getId(),
-         code: this.getCode(),
-         name: this.getName(),
-         type: this.getType(),
-         level: this.getItemLevel(),
-         rarity: this.getRarity(),
-         material: this.getMaterial(),
-         slot: this.getSlot(),
-         attribute: this.getDefaultAttribute(),
-         attributes: this.getAttributes(),
-      }
-      if (this._roll != null) {
-         json.roll = this._roll;
-      }
-      return json;
    }
 
    public setName(name: string): Item {

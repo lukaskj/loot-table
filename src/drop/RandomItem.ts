@@ -1,7 +1,7 @@
-import Codeable from "../interfaces/Codeable"
-import Item from "../Item"
+import Codeable from "../interfaces/Codeable";
+import Item from "../Item";
 import Random from "../utils/Random";
-import * as uuid from 'uuid';
+import * as uuid from "uuid";
 import { Rarity } from "../Rarities";
 import { Slot } from "../Slots";
 import { Material } from "../Materials";
@@ -76,7 +76,7 @@ export default class {
    }
 
 
-   private _getPropertyByChance<T extends Codeable>(propList: Array<TypeChance<T>>, certainDrop?: boolean): TypeChance<T> {
+   private _getPropertyByChance<T extends Codeable>(propList: Array<TypeChance<T>>): TypeChance<T> {
       const _propList = propList.sort((a: TypeChance<T>, b: TypeChance<T>) => b.chance - a.chance);
       for (let i = 0; i < _propList.length; i++) {
          // if (i == _propList.length - 1) {
@@ -93,7 +93,7 @@ export default class {
 
    public dropItem(): Item {
       return this.dropRandomItem();
-      let itemChance: number = this.items.reduce((prev, cur) => prev + cur.chance, 0);
+      const itemChance: number = this.items.reduce((prev, cur) => prev + cur.chance, 0);
       const randomItemChance = 100 - itemChance;
       const chance = this.random.double() * 100;
       if (chance < randomItemChance) {
@@ -119,26 +119,26 @@ export default class {
 
       item.setId(ID).setItemLevel(level);
 
-      if (!!this.rarities.length) {
+      if (this.rarities.length) {
          const rarity: Rarity = this._getPropertyByChance<Rarity>(this.rarities).property;
          item.setRarity(rarity);
       }
 
-      if (!!this.types.length) {
+      if (this.types.length) {
          const type: TypeChance<Type> = this._getPropertyByChance<Type>(this.types);
          item.setType(type.property);
-         const defaultAttr = item.getType().defaultAttribute;
-         item.setDefaultAttribute({ ...defaultAttr, value: this.random.range(type.value?.min || 0, type.value?.max || item.getItemLevel()) });
+         const defaultAttr = item.type.defaultAttribute;
+         item.setDefaultAttribute({ ...defaultAttr, value: this.random.range(type.value?.min || 0, type.value?.max || item.itemLevel) });
 
 
-         const itemMaterials: Array<Material> = item.getType().materials;
+         const itemMaterials: Array<Material> = item.type.materials;
          let mergedMaterials: Array<TypeChance<Material>> = [];
          const materialsNotInDroptable: Array<TypeChance<Material>> = [];
          // TODO randomize item materials order
          for (let index = 0; index < itemMaterials.length; index++) {
             const itemMaterial = itemMaterials[index];
             const itemMaterialInDropMaterial = this.materials?.find(i => i.property.code === itemMaterial.code);
-            if (!!itemMaterialInDropMaterial) {
+            if (itemMaterialInDropMaterial) {
                mergedMaterials.push(itemMaterialInDropMaterial);
             } else {
                materialsNotInDroptable.push({ chance: 100 / itemMaterials.length, property: itemMaterial });
@@ -148,24 +148,24 @@ export default class {
             mergedMaterials = materialsNotInDroptable;
          }
 
-         if (!!mergedMaterials.length) {
+         if (mergedMaterials.length) {
             const material: Material = this._getPropertyByChance<Material>(mergedMaterials).property;
             item.setMaterial(material);
          }
 
-         const itemTypeSlot: Slot = item.getType().slot;
-         if (!!itemTypeSlot) {
+         const itemTypeSlot: Slot = item.type.slot;
+         if (itemTypeSlot) {
             item.setSlot(itemTypeSlot);
-         } else if (!!this.slots.length) {
+         } else if (this.slots.length) {
             const slot: Slot = this._getPropertyByChance<Slot>(this.slots).property;
             item.setSlot(slot);
          }
       }
 
-      const maxAttributeCount = item.getRarity().attributeCount;
+      const maxAttributeCount = item.rarity.attributeCount;
       const attributesToAdd: Array<TypeChance<Attribute>> = [];
       for (const attr of this.attributes) {
-         if (item.getDefaultAttribute().code === attr.property.code) {
+         if (item.defaultAttribute.code === attr.property.code) {
             continue;
          }
          attributesToAdd.push(attr);
@@ -176,7 +176,7 @@ export default class {
             break;
          }
          const attrChance: TypeChance<Attribute> = this._getPropertyByChance<Attribute>(attributesToAdd);
-         item.addAttribute({ ...attrChance.property, value: this.random.range(attrChance?.value?.min || 0, attrChance?.value?.max || item.getItemLevel()) });
+         item.addAttribute({ ...attrChance.property, value: this.random.range(attrChance?.value?.min || 0, attrChance?.value?.max || item.itemLevel) });
          const indx = attributesToAdd.indexOf(attrChance);
          if (indx >= 0) {
             attributesToAdd.splice(indx, 1);
@@ -192,16 +192,16 @@ export default class {
 export type TypeMinMax = {
    min: number,
    max: number,
-}
+};
 
 export type TypeChance<T> = {
    chance: number,
    property: T,
    value?: TypeMinMax,
-}
+};
 
 export type TypeChanceItem = {
    chance: number,
    item: Item,
    level?: TypeMinMax
-}
+};
