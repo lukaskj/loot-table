@@ -1,9 +1,9 @@
 {
    "compilerOptions": {
-      "target": "ES2017",
+      "target": "ES6",
       "outDir": "./dist/",
       "sourceRoot": "./src/",
-      "rootDir": "./src/",
+      "rootDir": "./",
       "module": "CommonJS",
       "sourceMap": true,
       "allowJs": true,
@@ -18,7 +18,8 @@
       
    },
    "include": [
-      "src/**/*"
+      "src/**/*",
+      "tests/**/*"
    ],
    "exclude": [
       "node_modules",
