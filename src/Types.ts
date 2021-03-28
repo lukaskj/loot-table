@@ -1,11 +1,12 @@
 import * as Attributes from "./Attributes";
 import Codeable from "./interfaces/Codeable";
+import Rollable from "./interfaces/Rollable";
 import * as Materials from "./Materials";
 import * as Slots from "./Slots";
 
 const allMaterials: Array<Materials.Material> = Object.values(Materials);
 
-interface Type extends Codeable {
+interface Type extends Codeable, Rollable {
    slot: Slots.Slot,
    defaultAttribute: Attributes.Attribute,
    materials: Array<Materials.Material>,

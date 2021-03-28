@@ -1,6 +1,7 @@
 import Codeable from "./interfaces/Codeable";
+import Rollable from "./interfaces/Rollable";
 
-interface Rarity extends Codeable {
+interface Rarity extends Codeable, Rollable {
    multiplier: number,
    attributeCount: number,
 }
@@ -40,8 +41,19 @@ const RarityLegendary: Rarity = {
    attributeCount: 4,
 };
 
+const RarityMythic: Rarity = {
+   code: "mythic",
+   name: "Mythic",
+   multiplier: 6,
+   attributeCount: 5,
+};
 
-
+const RarityAngelic: Rarity = {
+   code: "angelic",
+   name: "Angelic",
+   multiplier: 7,
+   attributeCount: 6,
+};
 
 
 export {
@@ -51,4 +63,6 @@ export {
    RarityRare,
    RarityEpic,
    RarityLegendary,
+   RarityMythic,
+   RarityAngelic,
 };

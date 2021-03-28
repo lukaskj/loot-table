@@ -7,8 +7,9 @@ import { Slot } from "../Slots";
 import { Material } from "../Materials";
 import { Type } from "../Types";
 import { Attribute } from "../Attributes";
+import Rollable from "../interfaces/Rollable";
 
-export default class {
+export default class RandomItem {
    private itemLevel: TypeMinMax = { min: 0, max: 100 };
    private items: Array<TypeChanceItem> = [];
    private rarities: Array<TypeChance<Rarity>> = [];
@@ -29,7 +30,7 @@ export default class {
       return this;
    }
 
-   public _addRarity(rarity: TypeChance<Rarity>): this {
+   private _addRarity(rarity: TypeChance<Rarity>): this {
       this.rarities.push(rarity);
       return this;
    }
@@ -39,7 +40,7 @@ export default class {
    }
 
 
-   public _addType(type: TypeChance<Type>): this {
+   private _addType(type: TypeChance<Type>): this {
       this.types.push(type);
       return this;
    }
@@ -48,7 +49,7 @@ export default class {
       return this._addType({ chance: chance, property: type, value: { min: value, max: maxValue || value } } as TypeChance<Type>);
    }
 
-   public _addAttribute(attribute: TypeChance<Attribute>): this {
+   private _addAttribute(attribute: TypeChance<Attribute>): this {
       this.attributes.push(attribute);
       return this;
    }
@@ -57,7 +58,7 @@ export default class {
       return this._addAttribute({ chance, property: attribute, value: { min: value, max: maxValue || value } });
    }
 
-   public _addMaterial(material: TypeChance<Material>): this {
+   private _addMaterial(material: TypeChance<Material>): this {
       this.materials.push(material);
       return this;
    }
@@ -66,7 +67,7 @@ export default class {
       return this._addMaterial({ chance, property: material });
    }
 
-   public _addSlot(slot: TypeChance<Slot>): this {
+   private _addSlot(slot: TypeChance<Slot>): this {
       this.slots.push(slot);
       return this;
    }
@@ -76,15 +77,17 @@ export default class {
    }
 
 
-   private _getPropertyByChance<T extends Codeable>(propList: Array<TypeChance<T>>): TypeChance<T> {
+   private _getPropertyByChance<T extends Codeable & Rollable>(propList: Array<TypeChance<T>>): TypeChance<T> {
       const _propList = propList.sort((a: TypeChance<T>, b: TypeChance<T>) => b.chance - a.chance);
       for (let i = 0; i < _propList.length; i++) {
          // if (i == _propList.length - 1) {
          //    return _propList[i].property;
          // }
-         const dropChance = this.random.double() * 100;
+         const roll = this.random.double() * 100;
          // console.log("dropChance", dropChance, _propList[i].chance);
-         if (_propList[i].chance >= dropChance) {
+         if (_propList[i].chance >= roll) {
+            _propList[i].property._roll = roll;
+            _propList[i].property._chance = _propList[i].chance;
             return _propList[i];
          }
       }
@@ -165,7 +168,7 @@ export default class {
       const maxAttributeCount = item.rarity.attributeCount;
       const attributesToAdd: Array<TypeChance<Attribute>> = [];
       for (const attr of this.attributes) {
-         if (item.defaultAttribute.code === attr.property.code) {
+         if (!!item.defaultAttribute && item.defaultAttribute.code === attr.property.code) {
             continue;
          }
          attributesToAdd.push(attr);

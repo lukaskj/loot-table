@@ -1,6 +1,7 @@
 import Codeable from "./interfaces/Codeable";
+import Rollable from "./interfaces/Rollable";
 
-interface Material extends Codeable {
+interface Material extends Codeable, Rollable {
 
 }
 

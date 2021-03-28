@@ -15,10 +15,10 @@ describe("DropTable test", () => {
       .setRarity(Rarities.RarityRare)
       .setName("Test item");
 
-   dropTable.addItem({ chance: 10, drop: item });
+   dropTable.addItemDrop({ chance: 10, drop: item });
 
    test("DropTable drop item mandatory", () => {
-      const itemsDropped = dropTable.drop(1, true);
+      const itemsDropped = dropTable.drop(true, 1);
 
       expect(itemsDropped).not.toBeNull();
       expect(itemsDropped).not.toEqual([]);
@@ -28,7 +28,7 @@ describe("DropTable test", () => {
    });
 
    test("DropTable drop item not mandatory", () => {
-      const itemsDropped = dropTable.drop(2, false);
+      const itemsDropped = dropTable.drop(false, 2);
 
       expect(itemsDropped).not.toBeNull();
       expect(itemsDropped).toEqual([]);
@@ -42,7 +42,7 @@ describe("DropTable test", () => {
       drop.addRarity(Rarities.RarityRare, 100);
       drop.setItemLevel({ min: 20, max: 20 });
 
-      dropTable.addDrop({ chance: 60, drop: drop });
+      dropTable.addItemDrop({ chance: 60, drop: drop });
 
       const it: Array<Item> = dropTable.drop();
       expect(it[0].itemLevel).toBe(20);

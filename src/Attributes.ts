@@ -1,6 +1,7 @@
 import Codeable from "./interfaces/Codeable";
+import Rollable from "./interfaces/Rollable";
 
-interface Attribute extends Codeable {
+interface Attribute extends Codeable, Rollable {
    value?: number,
 }
 
@@ -44,6 +45,11 @@ const AttributeManaRegen: Attribute = {
    name: "Mana Regen",
 };
 
+const AttributeLuck: Attribute = {
+   code: "luck",
+   name: "Luck",
+};
+
 export {
    Attribute,
    AttributeAttackSpeed,
@@ -53,5 +59,6 @@ export {
    AttributeIntelligence,
    AttributeManaRegen,
    AttributeStrength,
-   AttributeCritDamage
+   AttributeCritDamage,
+   AttributeLuck
 };

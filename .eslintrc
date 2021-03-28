@@ -12,6 +12,7 @@
         "project": "./tsconfig.json"
     },
     "rules": {
+        "no-console": 1,
         "semi": [
             "off"
         ],

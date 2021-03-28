@@ -1,6 +1,7 @@
 import Codeable from "./interfaces/Codeable";
+import Rollable from "./interfaces/Rollable";
 
-interface Slot extends Codeable {
+interface Slot extends Codeable, Rollable {
 
 }
 

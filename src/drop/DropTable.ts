@@ -14,17 +14,12 @@ export default class Droptable {
       return this.dropTables;
    }
 
-   public addItem(item: TypeDropChance): Droptable {
-      this.addDrop(item);
-      return this;
-   }
-
-   public addDrop(drop: TypeDropChance): Droptable {
+   public addItemDrop(drop: TypeDropChance): Droptable {
       this.dropTables.push(drop);
       return this;
    }
 
-   public drop(itemQtyMax: number = 1, mandatory: boolean = true): Array<Item> {
+   public drop(mandatory: boolean = false, itemQtyMax: number = 1): Array<Item> {
 
       const dropTableClone = [...this.getDropTables()].sort((a: TypeDropChance, b: TypeDropChance) => b.chance - a.chance);
 
