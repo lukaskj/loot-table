@@ -17,6 +17,17 @@ export default class RandomItem {
    private materials: Array<TypeChance<Material>> = [];
    private slots: Array<TypeChance<Slot>> = [];
    private types: Array<TypeChance<Type>> = [];
+   private _name: string;
+
+
+   public get name(): string {
+      return this._name;
+   }
+
+   public setName(name: string): RandomItem {
+      this._name = name;
+      return this;
+   }
 
 
    private random: Random;
@@ -121,6 +132,9 @@ export default class RandomItem {
       const level: number = this.random.range(this.itemLevel.min, this.itemLevel.max, true);
 
       item.setId(ID).setItemLevel(level);
+      if (this._name) {
+         item.setName(this.name);
+      }
 
       if (this.rarities.length) {
          const rarity: Rarity = this._getPropertyByChance<Rarity>(this.rarities).property;
