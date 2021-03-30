@@ -9,7 +9,7 @@
         "plugin:@typescript-eslint/recommended",
     ],
     "parserOptions": {
-        "project": "./tsconfig.json"
+        "project": ["./tsconfig.json", "./tsconfig.test.json"]
     },
     "rules": {
         "no-console": 1,
@@ -24,6 +24,7 @@
             "error"
         ],
         "@typescript-eslint/no-empty-interface": "off",
-        "@typescript-eslint/no-inferrable-types": "off"
+        "@typescript-eslint/no-inferrable-types": "off",
+        "no-extra-boolean-cast": "off"
     }
 }

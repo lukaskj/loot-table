@@ -1,9 +1,9 @@
-import * as Attributes from "../src/Attributes";
-import * as Materials from "../src/Materials";
-import * as Rarities from "../src/Rarities";
-import * as Types from "../src/Types";
-import * as Slots from "../src/Slots";
-import RandomItem from "../src/drop/RandomItem";
+import * as Attributes from "../Attributes";
+import * as Materials from "../Materials";
+import * as Rarities from "../Rarities";
+import * as Types from "../Types";
+import * as Slots from "../Slots";
+import RandomItem from "../drop/RandomItem";
 
 
 

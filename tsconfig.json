@@ -3,7 +3,7 @@
       "target": "ES6",
       "outDir": "./dist/",
       "sourceRoot": "./src/",
-      "rootDir": "./",
+      "rootDir": "./src",
       "module": "CommonJS",
       "sourceMap": true,
       "allowJs": true,
@@ -15,11 +15,13 @@
       "esModuleInterop": false,
       "declaration": true,
       "declarationMap": true,
-      
+      "resolveJsonModule": false,
+      "pretty": false,
+      "experimentalDecorators": true,
+      "moduleResolution": "node"
    },
    "include": [
-      "src/**/*",
-      "tests/**/*"
+      "src/**/*.ts"
    ],
    "exclude": [
       "node_modules",

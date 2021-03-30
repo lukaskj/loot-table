@@ -1,9 +1,4 @@
-import Item from "../src/Item";
-import * as Attributes from "../src/Attributes";
-import * as Materials from "../src/Materials";
-import * as Rarities from "../src/Rarities";
-import * as Types from "../src/Types";
-import * as Slots from "../src/Slots";
+import { Attributes, Item, Materials, Rarities, Slots, Types } from "../src";
 
 describe("Item", () => {
    test("basic item object and serialization", () => {

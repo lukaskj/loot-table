@@ -9,6 +9,7 @@ export default class Item {
    private _name: string;
    private _code: string;
    private _itemLevel: number;
+   private _quality: number = 1;
    private _type: Type;
    private _material: Material;
    private _rarity: Rarity;
@@ -34,6 +35,10 @@ export default class Item {
       return this._itemLevel;
    }
 
+   public get quality(): number {
+      return this._quality;
+   }
+
    public get type(): Type {
       return this._type;
    }
@@ -55,7 +60,11 @@ export default class Item {
    }
 
    public get attributes(): Array<Attribute> {
-      return this._attributes;
+      return this._attributes.map(att => {
+         const quality = this._quality || 1;
+         att.value = att.value * quality;
+         return att;
+      });
    }
 
    public get roll(): number {
@@ -88,6 +97,11 @@ export default class Item {
       return this;
    }
 
+   public setQuality(quality: number): Item {
+      this._quality = quality;
+      return this;
+   }
+
    public setType(type: Type): Item {
       this._type = type;
       return this;
@@ -110,7 +124,8 @@ export default class Item {
    }
 
    public setAttributes(stats: Array<Attribute>): Item {
-      this._attributes = stats;
+      this._attributes.splice(0, this._attributes.length);
+      stats.forEach(att => this.addAttribute(att));
       return this;
    }
 

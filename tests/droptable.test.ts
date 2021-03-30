@@ -1,10 +1,4 @@
-import Item from "../src/Item";
-import * as Materials from "../src/Materials";
-import * as Rarities from "../src/Rarities";
-import * as Types from "../src/Types";
-import * as Slots from "../src/Slots";
-import RandomItem from "../src/drop/RandomItem";
-import DropTable from "../src/drop/DropTable";
+import { DropTable, Item, Materials, RandomItem, Rarities, Slots, Types } from "../src";
 
 
 describe("DropTable test", () => {

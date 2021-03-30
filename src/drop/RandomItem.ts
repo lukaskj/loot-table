@@ -18,14 +18,23 @@ export default class RandomItem {
    private slots: Array<TypeChance<Slot>> = [];
    private types: Array<TypeChance<Type>> = [];
    private _name: string;
+   private _quality: TypeMinMax;
 
 
    public get name(): string {
       return this._name;
    }
+   public get quality(): TypeMinMax {
+      return this._quality;
+   }
 
    public setName(name: string): RandomItem {
       this._name = name;
+      return this;
+   }
+
+   public setQuality(quality: TypeMinMax): RandomItem {
+      this._quality = quality;
       return this;
    }
 
@@ -206,10 +215,10 @@ export default class RandomItem {
 }
 
 
-export type TypeMinMax = {
+export interface TypeMinMax {
    min: number,
    max: number,
-};
+}
 
 export type TypeChance<T> = {
    chance: number,

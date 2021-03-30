@@ -1,4 +1,4 @@
-import Random from "../src/utils/Random";
+import { Random } from "../src";
 
 describe("Random tests", function () {
    const SEED = "seed";
