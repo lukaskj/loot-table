@@ -10,7 +10,7 @@ const RarityCommon: RarityInterface = {
    code: "common",
    name: "Common",
    multiplier: 1,
-   attributeCount: 0,
+   attributeCount: 1,
 };
 
 const RarityUncommon: RarityInterface = {

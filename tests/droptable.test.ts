@@ -34,7 +34,7 @@ describe("DropTable test", () => {
       drop.addMaterial(Materials.MaterialCloth, 100);
       drop.addSlot(Slots.SlotShoulder, 100);
       drop.addRarity(Rarities.RarityRare, 100);
-      drop.setItemLevel({ min: 20, max: 20 });
+      drop.setItemLevel(20);
 
       dropTable.addItemDrop({ chance: 60, drop: drop });
 

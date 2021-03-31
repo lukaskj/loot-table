@@ -33,8 +33,12 @@ export default class RandomItem {
       return this;
    }
 
-   public setQuality(quality: TypeRange): RandomItem {
-      this._quality = quality;
+   public setQuality(quality: TypeRange | number): RandomItem {
+      if (typeof quality === "number") {
+         this._quality = { min: quality, max: quality };
+      } else {
+         this._quality = quality;
+      }
       return this;
    }
 
@@ -45,8 +49,12 @@ export default class RandomItem {
       this.random = new Random(seed);
    }
 
-   public setItemLevel(itemLevel: TypeRange): this {
-      this.itemLevel = itemLevel;
+   public setItemLevel(itemLevel: TypeRange | number): this {
+      if (typeof itemLevel === "number") {
+         this.itemLevel = { min: itemLevel, max: itemLevel };
+      } else {
+         this.itemLevel = itemLevel;
+      }
       return this;
    }
 
@@ -139,8 +147,15 @@ export default class RandomItem {
       const ID: string = uuid.v4();
       const item: Item = new Item();
       const level: number = this.random.range(this.itemLevel.min, this.itemLevel.max, true);
+      item
+         .setId(ID)
+         .setItemLevel(level);
 
-      item.setId(ID).setItemLevel(level);
+      if (this.quality) {
+         const quality: number = this.random.range(this.quality.min, this.quality.max, true);
+         item.setQuality(quality);
+      }
+      
       if (this._name) {
          item.setName(this.name);
       }

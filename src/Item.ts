@@ -9,13 +9,14 @@ export default class Item {
    private _name: string;
    private _code: string;
    private _itemLevel: number;
-   private _quality: number = 1;
+   private _quality: number = 100;
    private _type: TypeInterface;
    private _material: MaterialInterface;
    private _rarity: RarityInterface;
    private _defaultAttribute: AttributeInterface;
    private _slot: SlotInterface;
    private _attributes: Array<AttributeInterface>;
+   private _baseAttributes: Array<AttributeInterface>;
    private _roll: number;
 
 
@@ -60,11 +61,11 @@ export default class Item {
    }
 
    public get attributes(): Array<AttributeInterface> {
-      return this._attributes.map(att => {
-         const quality = this._quality || 1;
-         att.value = att.value * quality;
-         return att;
-      });
+      return this._attributes;
+   }
+
+   public get baseAttributes(): Array<AttributeInterface> {
+      return this._baseAttributes;
    }
 
    public get roll(): number {
@@ -113,18 +114,31 @@ export default class Item {
    }
 
    public addAttribute(stat: AttributeInterface, value?: number): Item {
+      const baseAttribute: AttributeInterface = Object.assign({}, stat);
       if (!this._attributes) {
          this._attributes = [];
       }
-      if (value) {
-         stat.value = value;
+
+      if (!this._baseAttributes) {
+         this._baseAttributes = [];
       }
-      this._attributes.push(stat);
+
+      if (value) {
+         stat.value = value * this.quality / 100;
+         baseAttribute.value = value;
+      } else if (stat.value) {
+         baseAttribute.value = stat.value;
+         stat.value = stat.value * this.quality / 100;
+      }
+
+      this.attributes.push(stat);
+      this.baseAttributes.push(baseAttribute);
       return this;
    }
 
    public setAttributes(stats: Array<AttributeInterface>): Item {
       this._attributes.splice(0, this._attributes.length);
+      this._baseAttributes.splice(0, this._baseAttributes.length);
       stats.forEach(att => this.addAttribute(att));
       return this;
    }
