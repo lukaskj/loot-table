@@ -34,7 +34,6 @@ describe("RandomItem test", () => {
       expect(item).toHaveProperty("_rarity");
       expect(item).toHaveProperty("_slot");
       expect(item).toHaveProperty("_type");
-      expect(item).toHaveProperty("_defaultAttribute");
       if (item.rarity.code != "common") {
          expect(item).toHaveProperty("_attributes");
       }

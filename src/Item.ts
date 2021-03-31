@@ -13,7 +13,6 @@ export default class Item {
    private _type: TypeInterface;
    private _material: MaterialInterface;
    private _rarity: RarityInterface;
-   private _defaultAttribute: AttributeInterface;
    private _slot: SlotInterface;
    private _attributes: Array<AttributeInterface>;
    private _baseAttributes: Array<AttributeInterface>;
@@ -50,10 +49,6 @@ export default class Item {
 
    public get rarity(): RarityInterface {
       return this._rarity;
-   }
-
-   public get defaultAttribute(): AttributeInterface {
-      return this._defaultAttribute;
    }
 
    public get slot(): SlotInterface {
@@ -105,11 +100,6 @@ export default class Item {
 
    public setType(type: TypeInterface): Item {
       this._type = type;
-      return this;
-   }
-
-   public setDefaultAttribute(stat: AttributeInterface): Item {
-      this._defaultAttribute = stat;
       return this;
    }
 

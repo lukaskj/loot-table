@@ -155,7 +155,7 @@ export default class RandomItem {
          const quality: number = this.random.range(this.quality.min, this.quality.max, true);
          item.setQuality(quality);
       }
-      
+
       if (this._name) {
          item.setName(this.name);
       }
@@ -168,9 +168,6 @@ export default class RandomItem {
       if (this.types.length) {
          const type: TypeChance<TypeInterface> = this._getPropertyByChance<TypeInterface>(this.types);
          item.setType(type.property);
-         const defaultAttr = item.type.defaultAttribute;
-         item.setDefaultAttribute({ ...defaultAttr, value: this.random.range(type.value?.min || 0, type.value?.max || item.itemLevel) });
-
 
          const itemMaterials: Array<MaterialInterface> = item.type.materials;
          let mergedMaterials: Array<TypeChance<MaterialInterface>> = [];
@@ -206,9 +203,6 @@ export default class RandomItem {
       const maxAttributeCount = item.rarity.attributeCount;
       const attributesToAdd: Array<TypeChance<AttributeInterface>> = [];
       for (const attr of this.attributes) {
-         if (!!item.defaultAttribute && item.defaultAttribute.code === attr.property.code) {
-            continue;
-         }
          attributesToAdd.push(attr);
       }
 
