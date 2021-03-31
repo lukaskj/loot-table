@@ -1,8 +1,8 @@
-import { Attribute } from "./Attributes";
-import { Material } from "./Materials";
-import { Rarity } from "./Rarities";
-import { Slot } from "./Slots";
-import { Type } from "./Types";
+import { AttributeInterface } from "./Attributes";
+import { MaterialInterface } from "./Materials";
+import { RarityInterface } from "./Rarities";
+import { SlotInterface } from "./Slots";
+import { TypeInterface } from "./Types";
 
 export default class Item {
    private _id: string;
@@ -10,12 +10,12 @@ export default class Item {
    private _code: string;
    private _itemLevel: number;
    private _quality: number = 1;
-   private _type: Type;
-   private _material: Material;
-   private _rarity: Rarity;
-   private _defaultAttribute: Attribute;
-   private _slot: Slot;
-   private _attributes: Array<Attribute>;
+   private _type: TypeInterface;
+   private _material: MaterialInterface;
+   private _rarity: RarityInterface;
+   private _defaultAttribute: AttributeInterface;
+   private _slot: SlotInterface;
+   private _attributes: Array<AttributeInterface>;
    private _roll: number;
 
 
@@ -39,27 +39,27 @@ export default class Item {
       return this._quality;
    }
 
-   public get type(): Type {
+   public get type(): TypeInterface {
       return this._type;
    }
 
-   public get material(): Material {
+   public get material(): MaterialInterface {
       return this._material;
    }
 
-   public get rarity(): Rarity {
+   public get rarity(): RarityInterface {
       return this._rarity;
    }
 
-   public get defaultAttribute(): Attribute {
+   public get defaultAttribute(): AttributeInterface {
       return this._defaultAttribute;
    }
 
-   public get slot(): Slot {
+   public get slot(): SlotInterface {
       return this._slot;
    }
 
-   public get attributes(): Array<Attribute> {
+   public get attributes(): Array<AttributeInterface> {
       return this._attributes.map(att => {
          const quality = this._quality || 1;
          att.value = att.value * quality;
@@ -77,17 +77,17 @@ export default class Item {
       return this;
    }
 
-   public setSlot(slot: Slot): Item {
+   public setSlot(slot: SlotInterface): Item {
       this._slot = slot;
       return this;
    }
 
-   public setRarity(rarity: Rarity): Item {
+   public setRarity(rarity: RarityInterface): Item {
       this._rarity = rarity;
       return this;
    }
 
-   public setMaterial(Material: Material): Item {
+   public setMaterial(Material: MaterialInterface): Item {
       this._material = Material;
       return this;
    }
@@ -102,17 +102,17 @@ export default class Item {
       return this;
    }
 
-   public setType(type: Type): Item {
+   public setType(type: TypeInterface): Item {
       this._type = type;
       return this;
    }
 
-   public setDefaultAttribute(stat: Attribute): Item {
+   public setDefaultAttribute(stat: AttributeInterface): Item {
       this._defaultAttribute = stat;
       return this;
    }
 
-   public addAttribute(stat: Attribute, value?: number): Item {
+   public addAttribute(stat: AttributeInterface, value?: number): Item {
       if (!this._attributes) {
          this._attributes = [];
       }
@@ -123,7 +123,7 @@ export default class Item {
       return this;
    }
 
-   public setAttributes(stats: Array<Attribute>): Item {
+   public setAttributes(stats: Array<AttributeInterface>): Item {
       this._attributes.splice(0, this._attributes.length);
       stats.forEach(att => this.addAttribute(att));
       return this;

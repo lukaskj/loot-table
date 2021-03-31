@@ -1,57 +1,57 @@
 import Codeable from "./interfaces/Codeable";
 import Rollable from "./interfaces/Rollable";
 
-interface Attribute extends Codeable, Rollable {
+interface AttributeInterface extends Codeable, Rollable {
    value?: number,
 }
 
-const AttributeStrength: Attribute = {
+const AttributeStrength: AttributeInterface = {
    code: "Strength",
    name: "Strength",
 };
 
-const AttributeAttackSpeed: Attribute = {
+const AttributeAttackSpeed: AttributeInterface = {
    code: "agility",
    name: "Agility",
 };
 
-const AttributeArmor: Attribute = {
+const AttributeArmor: AttributeInterface = {
    code: "armor",
    name: "Armor",
 };
 
-const AttributeCritChance: Attribute = {
+const AttributeCritChance: AttributeInterface = {
    code: "critchance",
    name: "Crit Chance",
 };
 
-const AttributeCritDamage: Attribute = {
+const AttributeCritDamage: AttributeInterface = {
    code: "critdamage",
    name: "Crit Damage",
 };
 
-const AttributeHealth: Attribute = {
+const AttributeHealth: AttributeInterface = {
    code: "health",
    name: "Health",
 };
 
-const AttributeIntelligence: Attribute = {
+const AttributeIntelligence: AttributeInterface = {
    code: "intelligence",
    name: "Intelligence",
 };
 
-const AttributeManaRegen: Attribute = {
+const AttributeManaRegen: AttributeInterface = {
    code: "manaregen",
    name: "Mana Regen",
 };
 
-const AttributeLuck: Attribute = {
+const AttributeLuck: AttributeInterface = {
    code: "luck",
    name: "Luck",
 };
 
 export {
-   Attribute,
+   AttributeInterface,
    AttributeAttackSpeed,
    AttributeArmor,
    AttributeCritChance,

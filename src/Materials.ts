@@ -1,28 +1,28 @@
 import Codeable from "./interfaces/Codeable";
 import Rollable from "./interfaces/Rollable";
 
-interface Material extends Codeable, Rollable {
+interface MaterialInterface extends Codeable, Rollable {
 
 }
 
 
-const MaterialCloth: Material = {
+const MaterialCloth: MaterialInterface = {
    code: "cloth",
    name: "Cloth"
 };
 
-const MaterialLeather: Material = {
+const MaterialLeather: MaterialInterface = {
    code: "leather",
    name: "Leather"
 };
 
-const MaterialMailPlate: Material = {
+const MaterialMailPlate: MaterialInterface = {
    code: "mailplate",
    name: "MailPlate"
 };
 
 export {
-   Material,
+   MaterialInterface,
    MaterialCloth,
    MaterialLeather,
    MaterialMailPlate,

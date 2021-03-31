@@ -4,16 +4,16 @@ import Rollable from "./interfaces/Rollable";
 import * as Materials from "./Materials";
 import * as Slots from "./Slots";
 
-const allMaterials: Array<Materials.Material> = Object.values(Materials);
+const allMaterials: Array<Materials.MaterialInterface> = Object.values(Materials);
 
-interface Type extends Codeable, Rollable {
-   slot: Slots.Slot,
-   defaultAttribute: Attributes.Attribute,
-   materials: Array<Materials.Material>,
+interface TypeInterface extends Codeable, Rollable {
+   slot: Slots.SlotInterface,
+   defaultAttribute: Attributes.AttributeInterface,
+   materials: Array<Materials.MaterialInterface>,
 }
 
 
-const TypeCape: Type = {
+const TypeCape: TypeInterface = {
    code: "cape",
    name: "Cape",
    slot: Slots.SlotBack,
@@ -21,7 +21,7 @@ const TypeCape: Type = {
    materials: [Materials.MaterialCloth]
 };
 
-const TypeChest: Type = {
+const TypeChest: TypeInterface = {
    code: "chest",
    name: "Chest",
    slot: Slots.SlotChest,
@@ -29,7 +29,7 @@ const TypeChest: Type = {
    materials: allMaterials,
 };
 
-const TypeFoot: Type = {
+const TypeFoot: TypeInterface = {
    code: "foot",
    name: "Foot",
    slot: Slots.SlotFoot,
@@ -37,7 +37,7 @@ const TypeFoot: Type = {
    materials: allMaterials,
 };
 
-const TypeLegs: Type = {
+const TypeLegs: TypeInterface = {
    code: "legs",
    name: "Legs",
    slot: Slots.SlotLegs,
@@ -45,7 +45,7 @@ const TypeLegs: Type = {
    materials: allMaterials,
 };
 
-const TypeRing: Type = {
+const TypeRing: TypeInterface = {
    code: "ring",
    name: "Ring",
    slot: Slots.SlotFinger,
@@ -53,7 +53,7 @@ const TypeRing: Type = {
    materials: [],
 };
 
-const TypeShield: Type = {
+const TypeShield: TypeInterface = {
    code: "shield",
    name: "Shield",
    slot: Slots.SlotHand,
@@ -61,7 +61,7 @@ const TypeShield: Type = {
    materials: [Materials.MaterialMailPlate],
 };
 
-const TypeShoulder: Type = {
+const TypeShoulder: TypeInterface = {
    code: "shoulder",
    name: "Shoulder",
    slot: Slots.SlotShoulder,
@@ -69,7 +69,7 @@ const TypeShoulder: Type = {
    materials: allMaterials,
 };
 
-const TypeSword: Type = {
+const TypeSword: TypeInterface = {
    code: "sword",
    name: "Sword",
    slot: Slots.SlotHand,
@@ -78,7 +78,7 @@ const TypeSword: Type = {
 };
 
 export {
-   Type,
+   TypeInterface,
    TypeCape,
    TypeChest,
    TypeFoot,

@@ -1,56 +1,56 @@
 import Codeable from "./interfaces/Codeable";
 import Rollable from "./interfaces/Rollable";
 
-interface Slot extends Codeable, Rollable {
+interface SlotInterface extends Codeable, Rollable {
 
 }
 
-const SlotBack: Slot = {
+const SlotBack: SlotInterface = {
    code: "back",
    name: "Back",
 };
 
-const SlotHead: Slot = {
+const SlotHead: SlotInterface = {
    code: "head",
    name: "Head",
 };
 
-const SlotChest: Slot = {
+const SlotChest: SlotInterface = {
    code: "chest",
    name: "Chest",
 };
 
-const SlotLegs: Slot = {
+const SlotLegs: SlotInterface = {
    code: "legs",
    name: "Legs",
 };
 
-const SlotHand: Slot = {
+const SlotHand: SlotInterface = {
    code: "hand",
    name: "Hand",
 };
 
-const SlotShoulder: Slot = {
+const SlotShoulder: SlotInterface = {
    code: "shoulder",
    name: "Shoulder",
 };
 
-const SlotFoot: Slot = {
+const SlotFoot: SlotInterface = {
    code: "foot",
    name: "Foot",
 };
 
-const SlotTwoHand: Slot = {
+const SlotTwoHand: SlotInterface = {
    code: "twohand",
    name: "Two Hand",
 };
 
-const SlotNeck: Slot = {
+const SlotNeck: SlotInterface = {
    code: "Neck",
    name: "Neck",
 };
 
-const SlotFinger: Slot = {
+const SlotFinger: SlotInterface = {
    code: "finger",
    name: "Finger",
 };
@@ -58,7 +58,7 @@ const SlotFinger: Slot = {
 
 
 export {
-   Slot,
+   SlotInterface,
    SlotBack,
    SlotChest,
    SlotFoot,

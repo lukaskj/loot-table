@@ -2,29 +2,29 @@ import Codeable from "../interfaces/Codeable";
 import Item from "../Item";
 import Random from "../utils/Random";
 import * as uuid from "uuid";
-import { Rarity } from "../Rarities";
-import { Slot } from "../Slots";
-import { Material } from "../Materials";
-import { Type } from "../Types";
-import { Attribute } from "../Attributes";
+import { RarityInterface } from "../Rarities";
+import { SlotInterface } from "../Slots";
+import { MaterialInterface } from "../Materials";
+import { TypeInterface } from "../Types";
+import { AttributeInterface } from "../Attributes";
 import Rollable from "../interfaces/Rollable";
 
 export default class RandomItem {
-   private itemLevel: TypeMinMax = { min: 0, max: 100 };
+   private itemLevel: TypeRange = { min: 0, max: 100 };
    private items: Array<TypeChanceItem> = [];
-   private rarities: Array<TypeChance<Rarity>> = [];
-   private attributes: Array<TypeChance<Attribute>> = [];
-   private materials: Array<TypeChance<Material>> = [];
-   private slots: Array<TypeChance<Slot>> = [];
-   private types: Array<TypeChance<Type>> = [];
+   private rarities: Array<TypeChance<RarityInterface>> = [];
+   private attributes: Array<TypeChance<AttributeInterface>> = [];
+   private materials: Array<TypeChance<MaterialInterface>> = [];
+   private slots: Array<TypeChance<SlotInterface>> = [];
+   private types: Array<TypeChance<TypeInterface>> = [];
    private _name: string;
-   private _quality: TypeMinMax;
+   private _quality: TypeRange;
 
 
    public get name(): string {
       return this._name;
    }
-   public get quality(): TypeMinMax {
+   public get quality(): TypeRange {
       return this._quality;
    }
 
@@ -33,7 +33,7 @@ export default class RandomItem {
       return this;
    }
 
-   public setQuality(quality: TypeMinMax): RandomItem {
+   public setQuality(quality: TypeRange): RandomItem {
       this._quality = quality;
       return this;
    }
@@ -45,54 +45,54 @@ export default class RandomItem {
       this.random = new Random(seed);
    }
 
-   public setItemLevel(itemLevel: TypeMinMax): this {
+   public setItemLevel(itemLevel: TypeRange): this {
       this.itemLevel = itemLevel;
       return this;
    }
 
-   private _addRarity(rarity: TypeChance<Rarity>): this {
+   private _addRarity(rarity: TypeChance<RarityInterface>): this {
       this.rarities.push(rarity);
       return this;
    }
 
-   public addRarity(rarity: Rarity, chance: number): this {
+   public addRarity(rarity: RarityInterface, chance: number): this {
       return this._addRarity({ chance, property: rarity });
    }
 
 
-   private _addType(type: TypeChance<Type>): this {
+   private _addType(type: TypeChance<TypeInterface>): this {
       this.types.push(type);
       return this;
    }
 
-   public addType(type: Type, chance: number, value?: number, maxValue?: number): this {
-      return this._addType({ chance: chance, property: type, value: { min: value, max: maxValue || value } } as TypeChance<Type>);
+   public addType(type: TypeInterface, chance: number, value?: number, maxValue?: number): this {
+      return this._addType({ chance: chance, property: type, value: { min: value, max: maxValue || value } } as TypeChance<TypeInterface>);
    }
 
-   private _addAttribute(attribute: TypeChance<Attribute>): this {
+   private _addAttribute(attribute: TypeChance<AttributeInterface>): this {
       this.attributes.push(attribute);
       return this;
    }
 
-   public addAttribute(attribute: Attribute, chance: number, value?: number, maxValue?: number): this {
+   public addAttribute(attribute: AttributeInterface, chance: number, value?: number, maxValue?: number): this {
       return this._addAttribute({ chance, property: attribute, value: { min: value, max: maxValue || value } });
    }
 
-   private _addMaterial(material: TypeChance<Material>): this {
+   private _addMaterial(material: TypeChance<MaterialInterface>): this {
       this.materials.push(material);
       return this;
    }
 
-   public addMaterial(material: Material, chance: number): this {
+   public addMaterial(material: MaterialInterface, chance: number): this {
       return this._addMaterial({ chance, property: material });
    }
 
-   private _addSlot(slot: TypeChance<Slot>): this {
+   private _addSlot(slot: TypeChance<SlotInterface>): this {
       this.slots.push(slot);
       return this;
    }
 
-   public addSlot(slot: Slot, chance: number): this {
+   public addSlot(slot: SlotInterface, chance: number): this {
       return this._addSlot({ chance, property: slot });
    }
 
@@ -146,20 +146,20 @@ export default class RandomItem {
       }
 
       if (this.rarities.length) {
-         const rarity: Rarity = this._getPropertyByChance<Rarity>(this.rarities).property;
+         const rarity: RarityInterface = this._getPropertyByChance<RarityInterface>(this.rarities).property;
          item.setRarity(rarity);
       }
 
       if (this.types.length) {
-         const type: TypeChance<Type> = this._getPropertyByChance<Type>(this.types);
+         const type: TypeChance<TypeInterface> = this._getPropertyByChance<TypeInterface>(this.types);
          item.setType(type.property);
          const defaultAttr = item.type.defaultAttribute;
          item.setDefaultAttribute({ ...defaultAttr, value: this.random.range(type.value?.min || 0, type.value?.max || item.itemLevel) });
 
 
-         const itemMaterials: Array<Material> = item.type.materials;
-         let mergedMaterials: Array<TypeChance<Material>> = [];
-         const materialsNotInDroptable: Array<TypeChance<Material>> = [];
+         const itemMaterials: Array<MaterialInterface> = item.type.materials;
+         let mergedMaterials: Array<TypeChance<MaterialInterface>> = [];
+         const materialsNotInDroptable: Array<TypeChance<MaterialInterface>> = [];
          // TODO randomize item materials order
          for (let index = 0; index < itemMaterials.length; index++) {
             const itemMaterial = itemMaterials[index];
@@ -175,21 +175,21 @@ export default class RandomItem {
          }
 
          if (mergedMaterials.length) {
-            const material: Material = this._getPropertyByChance<Material>(mergedMaterials).property;
+            const material: MaterialInterface = this._getPropertyByChance<MaterialInterface>(mergedMaterials).property;
             item.setMaterial(material);
          }
 
-         const itemTypeSlot: Slot = item.type.slot;
-         if (itemTypeSlot) {
-            item.setSlot(itemTypeSlot);
+         const itemTypeSlotInterface: SlotInterface = item.type.slot;
+         if (itemTypeSlotInterface) {
+            item.setSlot(itemTypeSlotInterface);
          } else if (this.slots.length) {
-            const slot: Slot = this._getPropertyByChance<Slot>(this.slots).property;
+            const slot: SlotInterface = this._getPropertyByChance<SlotInterface>(this.slots).property;
             item.setSlot(slot);
          }
       }
 
       const maxAttributeCount = item.rarity.attributeCount;
-      const attributesToAdd: Array<TypeChance<Attribute>> = [];
+      const attributesToAdd: Array<TypeChance<AttributeInterface>> = [];
       for (const attr of this.attributes) {
          if (!!item.defaultAttribute && item.defaultAttribute.code === attr.property.code) {
             continue;
@@ -201,7 +201,7 @@ export default class RandomItem {
          if (!attributesToAdd.length) {
             break;
          }
-         const attrChance: TypeChance<Attribute> = this._getPropertyByChance<Attribute>(attributesToAdd);
+         const attrChance: TypeChance<AttributeInterface> = this._getPropertyByChance<AttributeInterface>(attributesToAdd);
          item.addAttribute({ ...attrChance.property, value: this.random.range(attrChance?.value?.min || 0, attrChance?.value?.max || item.itemLevel) });
          const indx = attributesToAdd.indexOf(attrChance);
          if (indx >= 0) {
@@ -215,7 +215,7 @@ export default class RandomItem {
 }
 
 
-export interface TypeMinMax {
+export interface TypeRange {
    min: number,
    max: number,
 }
@@ -223,11 +223,11 @@ export interface TypeMinMax {
 export type TypeChance<T> = {
    chance: number,
    property: T,
-   value?: TypeMinMax,
+   value?: TypeRange,
 };
 
 export type TypeChanceItem = {
    chance: number,
    item: Item,
-   level?: TypeMinMax
+   level?: TypeRange
 };

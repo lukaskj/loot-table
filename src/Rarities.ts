@@ -1,54 +1,54 @@
 import Codeable from "./interfaces/Codeable";
 import Rollable from "./interfaces/Rollable";
 
-interface Rarity extends Codeable, Rollable {
+interface RarityInterface extends Codeable, Rollable {
    multiplier: number,
    attributeCount: number,
 }
 
-const RarityCommon: Rarity = {
+const RarityCommon: RarityInterface = {
    code: "common",
    name: "Common",
    multiplier: 1,
    attributeCount: 0,
 };
 
-const RarityUncommon: Rarity = {
+const RarityUncommon: RarityInterface = {
    code: "uncommon",
    name: "Uncommon",
    multiplier: 2,
    attributeCount: 1,
 };
 
-const RarityRare: Rarity = {
+const RarityRare: RarityInterface = {
    code: "rare",
    name: "Rare",
    multiplier: 3,
    attributeCount: 2,
 };
 
-const RarityEpic: Rarity = {
+const RarityEpic: RarityInterface = {
    code: "epic",
    name: "Epic",
    multiplier: 4,
    attributeCount: 3,
 };
 
-const RarityLegendary: Rarity = {
+const RarityLegendary: RarityInterface = {
    code: "legendary",
    name: "Legendary",
    multiplier: 5,
    attributeCount: 4,
 };
 
-const RarityMythic: Rarity = {
+const RarityMythic: RarityInterface = {
    code: "mythic",
    name: "Mythic",
    multiplier: 6,
    attributeCount: 5,
 };
 
-const RarityAngelic: Rarity = {
+const RarityAngelic: RarityInterface = {
    code: "angelic",
    name: "Angelic",
    multiplier: 7,
@@ -57,7 +57,7 @@ const RarityAngelic: Rarity = {
 
 
 export {
-   Rarity,
+   RarityInterface,
    RarityCommon,
    RarityUncommon,
    RarityRare,
