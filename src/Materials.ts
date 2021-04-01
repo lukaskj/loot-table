@@ -21,9 +21,15 @@ const MaterialMailPlate: MaterialInterface = {
    name: "MailPlate"
 };
 
+const MaterialBronze: MaterialInterface = {
+   code: "bronze",
+   name: "Bronze"
+};
+
 export {
    MaterialInterface,
    MaterialCloth,
    MaterialLeather,
    MaterialMailPlate,
+   MaterialBronze
 };

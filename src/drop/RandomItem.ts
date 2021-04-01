@@ -9,22 +9,24 @@ import { TypeInterface } from "../Types";
 import { AttributeInterface } from "../Attributes";
 import Rollable from "../interfaces/Rollable";
 import { isNumber } from "../utils/Util";
+import RandomItemJsonInterface from "../interfaces/RandomItemJsonInterface";
 
 export default class RandomItem {
+   private _name: string;
    private itemLevel: TypeRange = { min: 0, max: 100 };
+   private _quality: TypeRange = { min: 0, max: 100 };
    private items: Array<TypeChanceItem> = [];
    private rarities: Array<TypeChance<RarityInterface>> = [];
    private attributes: Array<TypeChance<AttributeInterface>> = [];
    private materials: Array<TypeChance<MaterialInterface>> = [];
    private slots: Array<TypeChance<SlotInterface>> = [];
    private types: Array<TypeChance<TypeInterface>> = [];
-   private _name: string;
-   private _quality: TypeRange;
 
 
    public get name(): string {
       return this._name;
    }
+
    public get quality(): TypeRange {
       return this._quality;
    }
@@ -114,7 +116,6 @@ export default class RandomItem {
          //    return _propList[i].property;
          // }
          const roll = this.random.double() * 100;
-         // console.log("dropChance", dropChance, _propList[i].chance);
          if (_propList[i].chance >= roll) {
             _propList[i].property._roll = roll;
             _propList[i].property._chance = _propList[i].chance;
@@ -192,14 +193,13 @@ export default class RandomItem {
             const material: MaterialInterface = this._getPropertyByChance<MaterialInterface>(mergedMaterials).property;
             item.setMaterial(material);
          }
+      }
 
-         const itemTypeSlotInterface: SlotInterface = item.type.slot;
-         if (itemTypeSlotInterface) {
-            item.setSlot(itemTypeSlotInterface);
-         } else if (this.slots.length) {
-            const slot: SlotInterface = this._getPropertyByChance<SlotInterface>(this.slots).property;
-            item.setSlot(slot);
-         }
+      if (!!item.type && item.type.slot) {
+         item.setSlot(item.type.slot);
+      } else if (this.slots.length) {
+         const slot: SlotInterface = this._getPropertyByChance<SlotInterface>(this.slots).property;
+         item.setSlot(slot);
       }
 
       const maxAttributeCount = item.rarity.attributeCount;
@@ -213,7 +213,13 @@ export default class RandomItem {
             break;
          }
          const attrChance: TypeChance<AttributeInterface> = this._getPropertyByChance<AttributeInterface>(attributesToAdd);
-         item.addAttribute({ ...attrChance.property, value: this.random.range(attrChance?.value?.min || 0, attrChance?.value?.max || item.itemLevel) });
+         let value: number;
+         if (isNumber(attrChance.value)) {
+            value = attrChance.value;
+         } else {
+            value = this.random.range(attrChance?.value?.min || 0, attrChance?.value?.max || item.itemLevel);
+         }
+         item.addAttribute({ ...attrChance.property, value });
          const indx = attributesToAdd.indexOf(attrChance);
          if (indx >= 0) {
             attributesToAdd.splice(indx, 1);
@@ -221,6 +227,64 @@ export default class RandomItem {
       }
 
       return item;
+   }
+
+   public static fromJson(randomItem: RandomItemJsonInterface): RandomItem {
+      const seed = randomItem.seed;
+      const rdItemResult = new RandomItem(seed);
+
+      if (!!randomItem.name) {
+         rdItemResult.setName(randomItem.name);
+      }
+
+      if (!!randomItem.itemLevel) {
+         rdItemResult.setItemLevel(randomItem.itemLevel);
+      }
+
+      if (!!randomItem.quality) {
+         rdItemResult.setQuality(randomItem.quality);
+      }
+      if (!!randomItem.rarities && Array.isArray(randomItem.rarities)) {
+         randomItem.rarities.forEach(it => rdItemResult._addRarity({
+            chance: it.chance,
+            property: it.rarity,
+            value: it.value
+         }));
+      }
+
+      if (!!randomItem.attributes && Array.isArray(randomItem.attributes)) {
+         randomItem.attributes.forEach(it => rdItemResult._addAttribute({
+            chance: it.chance,
+            property: it.attribute,
+            value: it.value
+         }));
+      }
+
+      if (!!randomItem.slots && Array.isArray(randomItem.slots)) {
+         randomItem.slots.forEach(it => rdItemResult._addSlot({
+            chance: it.chance,
+            property: it.slot,
+            value: it.value
+         }));
+      }
+
+      if (!!randomItem.types && Array.isArray(randomItem.types)) {
+         randomItem.types.forEach(it => rdItemResult._addType({
+            chance: it.chance,
+            property: it.type,
+            value: it.value
+         }));
+      }
+
+      if (!!randomItem.materials && Array.isArray(randomItem.materials)) {
+         randomItem.materials.forEach(it => rdItemResult._addMaterial({
+            chance: it.chance,
+            property: it.material,
+            value: it.value
+         }));
+      }
+
+      return rdItemResult;
    }
 
 }
@@ -234,7 +298,37 @@ export interface TypeRange {
 export type TypeChance<T> = {
    chance: number,
    property: T,
-   value?: TypeRange,
+   value?: TypeRange | number,
+};
+
+export type TypeChanceRarity = {
+   chance: number,
+   rarity: RarityInterface,
+   value?: TypeRange | number,
+};
+
+export type TypeChanceAttribute = {
+   chance: number,
+   attribute: AttributeInterface,
+   value?: TypeRange | number,
+};
+
+export type TypeChanceMaterial = {
+   chance: number,
+   material: MaterialInterface,
+   value?: TypeRange | number,
+};
+
+export type TypeChanceSlot = {
+   chance: number,
+   slot: SlotInterface,
+   value?: TypeRange | number,
+};
+
+export type TypeChanceType = {
+   chance: number,
+   type: TypeInterface,
+   value?: TypeRange | number,
 };
 
 export type TypeChanceItem = {

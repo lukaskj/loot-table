@@ -1,4 +1,3 @@
-import * as Attributes from "./Attributes";
 import Codeable from "./interfaces/Codeable";
 import Rollable from "./interfaces/Rollable";
 import * as Materials from "./Materials";
@@ -65,7 +64,7 @@ const TypeSword: TypeInterface = {
    code: "sword",
    name: "Sword",
    slot: Slots.SlotHand,
-   materials: [Attributes.AttributeStrength],
+   materials: [Materials.MaterialBronze],
 };
 
 export {

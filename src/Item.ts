@@ -155,4 +155,17 @@ export default class Item {
    public getRoll(): number {
       return this._roll;
    }
+
+
+   public toJson(): unknown {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const copy: any = Object.assign({}, this);
+      Object.keys(copy)
+         .filter(k => k[0] === "_" && k != "_roll")
+         .forEach(k => {
+            copy[k.replace("_", "")] = copy[k];
+            delete copy[k];
+         });
+      return copy;
+   }
 }

@@ -12,7 +12,9 @@ export default class {
    private rndFnc: () => number;
 
    constructor(seed?: string) {
-      this.seed = seed;
+      if (!!seed) {
+         this.seed = seed;
+      }
    }
 
    private randomFunction(): () => number {
