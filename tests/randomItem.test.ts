@@ -16,7 +16,7 @@ describe("RandomItem test", () => {
          .addRarity(Rarities.RarityRare, 10)
          .addRarity(Rarities.RarityEpic, 3)
          .addRarity(Rarities.RarityLegendary, 0)
-         .addType(Types.TypeChest, 50, 1, 50)
+         .addType(Types.TypeChest, 50)
          .addMaterial(Materials.MaterialCloth, 12)
          .addSlot(Slots.SlotFoot, 20)
          .addAttribute(Attributes.AttributeArmor, 50, 1, 50)

@@ -8,6 +8,7 @@ import { MaterialInterface } from "../Materials";
 import { TypeInterface } from "../Types";
 import { AttributeInterface } from "../Attributes";
 import Rollable from "../interfaces/Rollable";
+import { isNumber } from "../utils/Util";
 
 export default class RandomItem {
    private itemLevel: TypeRange = { min: 0, max: 100 };
@@ -28,13 +29,13 @@ export default class RandomItem {
       return this._quality;
    }
 
-   public setName(name: string): RandomItem {
+   public setName(name: string): this {
       this._name = name;
       return this;
    }
 
-   public setQuality(quality: TypeRange | number): RandomItem {
-      if (typeof quality === "number") {
+   public setQuality(quality: TypeRange | number): this {
+      if (isNumber(quality)) {
          this._quality = { min: quality, max: quality };
       } else {
          this._quality = quality;
@@ -50,7 +51,7 @@ export default class RandomItem {
    }
 
    public setItemLevel(itemLevel: TypeRange | number): this {
-      if (typeof itemLevel === "number") {
+      if (isNumber(itemLevel)) {
          this.itemLevel = { min: itemLevel, max: itemLevel };
       } else {
          this.itemLevel = itemLevel;
@@ -73,8 +74,8 @@ export default class RandomItem {
       return this;
    }
 
-   public addType(type: TypeInterface, chance: number, value?: number, maxValue?: number): this {
-      return this._addType({ chance: chance, property: type, value: { min: value, max: maxValue || value } } as TypeChance<TypeInterface>);
+   public addType(type: TypeInterface, chance: number): this {
+      return this._addType({ chance: chance, property: type } as TypeChance<TypeInterface>);
    }
 
    private _addAttribute(attribute: TypeChance<AttributeInterface>): this {
@@ -82,8 +83,9 @@ export default class RandomItem {
       return this;
    }
 
-   public addAttribute(attribute: AttributeInterface, chance: number, value?: number, maxValue?: number): this {
-      return this._addAttribute({ chance, property: attribute, value: { min: value, max: maxValue || value } });
+   public addAttribute(attribute: AttributeInterface, chance: number, value?: TypeRange | number): this {
+      const rangeValue = isNumber(value) ? { min: value, max: value } : value;
+      return this._addAttribute({ chance, property: attribute, value: rangeValue });
    }
 
    private _addMaterial(material: TypeChance<MaterialInterface>): this {
