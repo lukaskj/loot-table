@@ -67,7 +67,10 @@ export default class DropTable {
     dropTable.setMandatory(dropTableJson.mandatory ?? false);
     dropTable.setMaxItemQty(dropTableJson.itemQtyMax ?? 1);
     for (const drop of dropTableJson.dropTables) {
-      dropTable.addItemDrop(drop);
+      dropTable.addItemDrop({
+        chance: drop.chance,
+        drop: RandomItem.fromJson(drop.item),
+      });
     }
     return dropTable;
   }

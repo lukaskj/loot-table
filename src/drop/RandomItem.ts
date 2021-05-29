@@ -14,14 +14,14 @@ import { Chance, ChanceItem, Range } from "./types";
 
 export default class RandomItem {
   private _name: string;
-  private itemLevel: Range = { min: 0, max: 100 };
+  public itemLevel: Range = { min: 0, max: 100 };
   private _quality: Range = { min: 0, max: 100 };
-  private items: Array<ChanceItem> = [];
-  private rarities: Array<Chance<RarityInterface>> = [];
-  private attributes: Array<Chance<AttributeInterface>> = [];
-  private materials: Array<Chance<MaterialInterface>> = [];
-  private slots: Array<Chance<SlotInterface>> = [];
-  private types: Array<Chance<TypeInterface>> = [];
+  public items: Array<ChanceItem> = [];
+  public rarities: Array<Chance<RarityInterface>> = [];
+  public attributes: Array<Chance<AttributeInterface>> = [];
+  public materials: Array<Chance<MaterialInterface>> = [];
+  public slots: Array<Chance<SlotInterface>> = [];
+  public types: Array<Chance<TypeInterface>> = [];
 
   public get name(): string {
     return this._name;
