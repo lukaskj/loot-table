@@ -1,9 +1,10 @@
+import { DropTableJsonInterface } from "../interfaces/DropTableJsonInterface";
 import Item from "../Item";
 import Random from "../utils/Random";
 import RandomItem from "./RandomItem";
 import { DropChance } from "./types";
 
-export default class Droptable {
+export default class DropTable {
    private dropTables: Array<DropChance> = [];
    private random: Random;
 
@@ -15,7 +16,7 @@ export default class Droptable {
       return this.dropTables;
    }
 
-   public addItemDrop(drop: DropChance): Droptable {
+   public addItemDrop(drop: DropChance): DropTable {
       this.dropTables.push(drop);
       return this;
    }
@@ -48,5 +49,13 @@ export default class Droptable {
          }
       }
       return result;
+   }
+
+   public static fromJson(dropTableJson: DropTableJsonInterface): DropTable {
+     const dropTable: DropTable = new DropTable(dropTableJson.seed);
+     for (const drop of dropTableJson.dropTables) {
+       dropTable.addItemDrop(drop);
+     }
+     return dropTable;
    }
 }
