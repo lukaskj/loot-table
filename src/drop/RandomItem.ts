@@ -1,7 +1,7 @@
 import * as uuid from "uuid";
 import { AttributeInterface } from "../Attributes";
 import Codeable from "../interfaces/Codeable";
-import RandomItemJsonInterface from "../interfaces/RandomItemJsonInterface";
+import {RandomItemJsonInterface } from "../interfaces/RandomItemJsonInterface";
 import Rollable from "../interfaces/Rollable";
 import Item from "../Item";
 import { MaterialInterface } from "../Materials";

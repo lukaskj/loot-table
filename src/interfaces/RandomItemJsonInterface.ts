@@ -1,6 +1,6 @@
 import { ChanceAttribute, ChanceMaterial, ChanceRarity, ChanceSlot, Range, ChanceType } from "../drop/types";
 
-interface RandomItemJsonInterface {
+export interface RandomItemJsonInterface {
     seed?: string,
     name?: string;
     itemLevel?: Range | number;
@@ -12,5 +12,3 @@ interface RandomItemJsonInterface {
     slots?: Array<ChanceSlot>;
     types?: Array<ChanceType>;
 }
-
-export default RandomItemJsonInterface;
