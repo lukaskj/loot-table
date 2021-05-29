@@ -8,14 +8,4 @@ import * as Slots from "./Slots";
 import RandomItem from "./drop/RandomItem";
 import DropTable from "./drop/DropTable";
 
-export {
-   Item,
-   RandomItem,
-   DropTable,
-   Rarities,
-   Attributes,
-   Types,
-   Slots,
-   Materials,
-   Random,
-};
+export { Item, RandomItem, DropTable, Rarities, Attributes, Types, Slots, Materials, Random };

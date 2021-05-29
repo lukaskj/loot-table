@@ -1,8 +1,8 @@
-import {DropChance} from "../drop/types";
+import { DropChance } from "../drop/types";
 
 export interface DropTableJsonInterface {
   seed?: string;
   mandatory?: boolean;
-  itemQtyMax?:number;
+  itemQtyMax?: number;
   dropTables: Array<DropChance>;
 }
