@@ -1,4 +1,4 @@
-import { TypeChanceSlot, TypeChanceType, TypeChanceAttribute, TypeChanceMaterial, TypeChanceRarity, TypeRange } from "../drop/RandomItem";
+import { TypeChanceAttribute, TypeChanceMaterial, TypeChanceRarity, TypeChanceSlot, TypeChanceType, TypeRange } from "../drop/types";
 
 interface RandomItemJsonInterface {
     seed?: string,
