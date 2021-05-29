@@ -18,7 +18,8 @@
       "resolveJsonModule": false,
       "pretty": false,
       "experimentalDecorators": true,
-      "moduleResolution": "node"
+      "moduleResolution": "node",
+      "strictNullChecks": true
    },
    "include": [
       "src/**/*.ts"
