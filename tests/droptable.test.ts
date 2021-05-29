@@ -12,7 +12,10 @@ describe("DropTable test", () => {
    dropTable.addItemDrop({ chance: 10, drop: item });
 
    test("DropTable drop item mandatory", () => {
-      const itemsDropped = dropTable.drop(true, 1);
+      const itemsDropped = dropTable
+          .setMandatory(true)
+          .setMaxItemQty(1)
+          .drop();
 
       expect(itemsDropped).not.toBeNull();
       expect(itemsDropped).not.toEqual([]);
@@ -22,7 +25,10 @@ describe("DropTable test", () => {
    });
 
    test("DropTable drop item not mandatory", () => {
-      const itemsDropped = dropTable.drop(false, 2);
+      const itemsDropped = dropTable
+        .setMandatory(false)
+        .setMaxItemQty(2)
+        .drop();
 
       expect(itemsDropped).not.toBeNull();
       expect(itemsDropped).toEqual([]);
