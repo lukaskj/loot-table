@@ -1,15 +1,16 @@
-import Codeable from "../interfaces/Codeable";
-import Item from "../Item";
-import Random from "../utils/Random";
 import * as uuid from "uuid";
+import { AttributeInterface } from "../Attributes";
+import Codeable from "../interfaces/Codeable";
+import RandomItemJsonInterface from "../interfaces/RandomItemJsonInterface";
+import Rollable from "../interfaces/Rollable";
+import Item from "../Item";
+import { MaterialInterface } from "../Materials";
 import { RarityInterface } from "../Rarities";
 import { SlotInterface } from "../Slots";
-import { MaterialInterface } from "../Materials";
 import { TypeInterface } from "../Types";
-import { AttributeInterface } from "../Attributes";
-import Rollable from "../interfaces/Rollable";
+import Random from "../utils/Random";
 import { isNumber } from "../utils/Util";
-import RandomItemJsonInterface from "../interfaces/RandomItemJsonInterface";
+import { TypeChance, TypeChanceItem, TypeRange } from "./types";
 
 export default class RandomItem {
    private _name: string;
@@ -288,51 +289,3 @@ export default class RandomItem {
    }
 
 }
-
-
-export interface TypeRange {
-   min: number,
-   max: number,
-}
-
-export type TypeChance<T> = {
-   chance: number,
-   property: T,
-   value?: TypeRange | number,
-};
-
-export type TypeChanceRarity = {
-   chance: number,
-   rarity: RarityInterface,
-   value?: TypeRange | number,
-};
-
-export type TypeChanceAttribute = {
-   chance: number,
-   attribute: AttributeInterface,
-   value?: TypeRange | number,
-};
-
-export type TypeChanceMaterial = {
-   chance: number,
-   material: MaterialInterface,
-   value?: TypeRange | number,
-};
-
-export type TypeChanceSlot = {
-   chance: number,
-   slot: SlotInterface,
-   value?: TypeRange | number,
-};
-
-export type TypeChanceType = {
-   chance: number,
-   type: TypeInterface,
-   value?: TypeRange | number,
-};
-
-export type TypeChanceItem = {
-   chance: number,
-   item: Item,
-   level?: TypeRange
-};
