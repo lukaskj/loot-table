@@ -128,23 +128,6 @@ export default class RandomItem {
 
    public dropItem(): Item {
       return this.dropRandomItem();
-      const itemChance: number = this.items.reduce((prev, cur) => prev + cur.chance, 0);
-      const randomItemChance = 100 - itemChance;
-      const chance = this.random.double() * 100;
-      if (chance < randomItemChance) {
-         return this.dropRandomItem();
-      } else {
-         // same logic as _getPropertyByChance
-         const _itemlist = this.items.sort((a: ChanceItem, b: ChanceItem) => b.chance - a.chance);
-         for (let i = 0; i < _itemlist.length; i++) {
-            const roll = this.random.double() * 100;
-            // console.log("roll", roll, _itemlist[i].chance);
-            if (_itemlist[i].chance >= roll) {
-               return _itemlist[i].item;
-            }
-         }
-         return null;
-      }
    }
 
    private dropRandomItem(): Item {
