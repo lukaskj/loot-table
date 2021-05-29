@@ -1,4 +1,4 @@
-import { Item } from "..";
+import { Item, RandomItem } from "..";
 import { AttributeInterface } from "../Attributes";
 import { MaterialInterface } from "../Materials";
 import { RarityInterface } from "../Rarities";
@@ -50,4 +50,10 @@ export type TypeChanceItem = {
   chance: number,
   item: Item,
   level?: TypeRange
+};
+
+
+export type TypeDropChance = {
+  chance: number,
+  drop: RandomItem | Item,
 };

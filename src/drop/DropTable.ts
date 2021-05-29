@@ -1,6 +1,7 @@
 import Item from "../Item";
 import Random from "../utils/Random";
 import RandomItem from "./RandomItem";
+import { TypeDropChance } from "./types";
 
 export default class Droptable {
    private dropTables: Array<TypeDropChance> = [];
@@ -49,9 +50,3 @@ export default class Droptable {
       return result;
    }
 }
-
-export type TypeDropChance = {
-   chance: number,
-   drop: RandomItem | Item,
-};
-
