@@ -5,55 +5,55 @@ import { RarityInterface } from "../Rarities";
 import { SlotInterface } from "../Slots";
 import { TypeInterface } from "../Types";
 
-export interface TypeRange {
+export interface Range {
   min: number,
   max: number,
 }
 
-export type TypeChance<T> = {
+export type Chance<T> = {
   chance: number,
   property: T,
-  value?: TypeRange | number,
+  value?: Range | number,
 };
 
-export type TypeChanceRarity = {
+export type ChanceRarity = {
   chance: number,
   rarity: RarityInterface,
-  value?: TypeRange | number,
+  value?: Range | number,
 };
 
-export type TypeChanceAttribute = {
+export type ChanceAttribute = {
   chance: number,
   attribute: AttributeInterface,
-  value?: TypeRange | number,
+  value?: Range | number,
 };
 
-export type TypeChanceMaterial = {
+export type ChanceMaterial = {
   chance: number,
   material: MaterialInterface,
-  value?: TypeRange | number,
+  value?: Range | number,
 };
 
-export type TypeChanceSlot = {
+export type ChanceSlot = {
   chance: number,
   slot: SlotInterface,
-  value?: TypeRange | number,
+  value?: Range | number,
 };
 
-export type TypeChanceType = {
+export type ChanceType = {
   chance: number,
   type: TypeInterface,
-  value?: TypeRange | number,
+  value?: Range | number,
 };
 
-export type TypeChanceItem = {
+export type ChanceItem = {
   chance: number,
   item: Item,
-  level?: TypeRange
+  level?: Range
 };
 
 
-export type TypeDropChance = {
+export type DropChance = {
   chance: number,
   drop: RandomItem | Item,
 };

@@ -10,25 +10,25 @@ import { SlotInterface } from "../Slots";
 import { TypeInterface } from "../Types";
 import Random from "../utils/Random";
 import { isNumber } from "../utils/Util";
-import { TypeChance, TypeChanceItem, TypeRange } from "./types";
+import { Chance, ChanceItem, Range } from "./types";
 
 export default class RandomItem {
    private _name: string;
-   private itemLevel: TypeRange = { min: 0, max: 100 };
-   private _quality: TypeRange = { min: 0, max: 100 };
-   private items: Array<TypeChanceItem> = [];
-   private rarities: Array<TypeChance<RarityInterface>> = [];
-   private attributes: Array<TypeChance<AttributeInterface>> = [];
-   private materials: Array<TypeChance<MaterialInterface>> = [];
-   private slots: Array<TypeChance<SlotInterface>> = [];
-   private types: Array<TypeChance<TypeInterface>> = [];
+   private itemLevel: Range = { min: 0, max: 100 };
+   private _quality: Range = { min: 0, max: 100 };
+   private items: Array<ChanceItem> = [];
+   private rarities: Array<Chance<RarityInterface>> = [];
+   private attributes: Array<Chance<AttributeInterface>> = [];
+   private materials: Array<Chance<MaterialInterface>> = [];
+   private slots: Array<Chance<SlotInterface>> = [];
+   private types: Array<Chance<TypeInterface>> = [];
 
 
    public get name(): string {
       return this._name;
    }
 
-   public get quality(): TypeRange {
+   public get quality(): Range {
       return this._quality;
    }
 
@@ -37,7 +37,7 @@ export default class RandomItem {
       return this;
    }
 
-   public setQuality(quality: TypeRange | number): this {
+   public setQuality(quality: Range | number): this {
       if (isNumber(quality)) {
          this._quality = { min: quality, max: quality };
       } else {
@@ -53,7 +53,7 @@ export default class RandomItem {
       this.random = new Random(seed);
    }
 
-   public setItemLevel(itemLevel: TypeRange | number): this {
+   public setItemLevel(itemLevel: Range | number): this {
       if (isNumber(itemLevel)) {
          this.itemLevel = { min: itemLevel, max: itemLevel };
       } else {
@@ -62,7 +62,7 @@ export default class RandomItem {
       return this;
    }
 
-   private _addRarity(rarity: TypeChance<RarityInterface>): this {
+   private _addRarity(rarity: Chance<RarityInterface>): this {
       this.rarities.push(rarity);
       return this;
    }
@@ -72,26 +72,26 @@ export default class RandomItem {
    }
 
 
-   private _addType(type: TypeChance<TypeInterface>): this {
+   private _addType(type: Chance<TypeInterface>): this {
       this.types.push(type);
       return this;
    }
 
    public addType(type: TypeInterface, chance: number): this {
-      return this._addType({ chance: chance, property: type } as TypeChance<TypeInterface>);
+      return this._addType({ chance: chance, property: type } as Chance<TypeInterface>);
    }
 
-   private _addAttribute(attribute: TypeChance<AttributeInterface>): this {
+   private _addAttribute(attribute: Chance<AttributeInterface>): this {
       this.attributes.push(attribute);
       return this;
    }
 
-   public addAttribute(attribute: AttributeInterface, chance: number, value?: TypeRange | number): this {
+   public addAttribute(attribute: AttributeInterface, chance: number, value?: Range | number): this {
       const rangeValue = isNumber(value) ? { min: value, max: value } : value;
       return this._addAttribute({ chance, property: attribute, value: rangeValue });
    }
 
-   private _addMaterial(material: TypeChance<MaterialInterface>): this {
+   private _addMaterial(material: Chance<MaterialInterface>): this {
       this.materials.push(material);
       return this;
    }
@@ -100,7 +100,7 @@ export default class RandomItem {
       return this._addMaterial({ chance, property: material });
    }
 
-   private _addSlot(slot: TypeChance<SlotInterface>): this {
+   private _addSlot(slot: Chance<SlotInterface>): this {
       this.slots.push(slot);
       return this;
    }
@@ -110,8 +110,8 @@ export default class RandomItem {
    }
 
 
-   private _getPropertyByChance<T extends Codeable & Rollable>(propList: Array<TypeChance<T>>): TypeChance<T> {
-      const _propList = propList.sort((a: TypeChance<T>, b: TypeChance<T>) => b.chance - a.chance);
+   private _getPropertyByChance<T extends Codeable & Rollable>(propList: Array<Chance<T>>): Chance<T> {
+      const _propList = propList.sort((a: Chance<T>, b: Chance<T>) => b.chance - a.chance);
       for (let i = 0; i < _propList.length; i++) {
          // if (i == _propList.length - 1) {
          //    return _propList[i].property;
@@ -135,7 +135,7 @@ export default class RandomItem {
          return this.dropRandomItem();
       } else {
          // same logic as _getPropertyByChance
-         const _itemlist = this.items.sort((a: TypeChanceItem, b: TypeChanceItem) => b.chance - a.chance);
+         const _itemlist = this.items.sort((a: ChanceItem, b: ChanceItem) => b.chance - a.chance);
          for (let i = 0; i < _itemlist.length; i++) {
             const roll = this.random.double() * 100;
             // console.log("roll", roll, _itemlist[i].chance);
@@ -170,12 +170,12 @@ export default class RandomItem {
       }
 
       if (this.types.length) {
-         const type: TypeChance<TypeInterface> = this._getPropertyByChance<TypeInterface>(this.types);
+         const type: Chance<TypeInterface> = this._getPropertyByChance<TypeInterface>(this.types);
          item.setType(type.property);
 
          const itemMaterials: Array<MaterialInterface> = item.type.materials;
-         let mergedMaterials: Array<TypeChance<MaterialInterface>> = [];
-         const materialsNotInDroptable: Array<TypeChance<MaterialInterface>> = [];
+         let mergedMaterials: Array<Chance<MaterialInterface>> = [];
+         const materialsNotInDroptable: Array<Chance<MaterialInterface>> = [];
          // TODO randomize item materials order
          for (let index = 0; index < itemMaterials.length; index++) {
             const itemMaterial = itemMaterials[index];
@@ -204,7 +204,7 @@ export default class RandomItem {
       }
 
       const maxAttributeCount = item.rarity.attributeCount;
-      const attributesToAdd: Array<TypeChance<AttributeInterface>> = [];
+      const attributesToAdd: Array<Chance<AttributeInterface>> = [];
       for (const attr of this.attributes) {
          attributesToAdd.push(attr);
       }
@@ -213,7 +213,7 @@ export default class RandomItem {
          if (!attributesToAdd.length) {
             break;
          }
-         const attrChance: TypeChance<AttributeInterface> = this._getPropertyByChance<AttributeInterface>(attributesToAdd);
+         const attrChance: Chance<AttributeInterface> = this._getPropertyByChance<AttributeInterface>(attributesToAdd);
          let value: number;
          if (isNumber(attrChance.value)) {
             value = attrChance.value;

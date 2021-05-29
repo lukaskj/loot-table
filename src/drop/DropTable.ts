@@ -1,28 +1,28 @@
 import Item from "../Item";
 import Random from "../utils/Random";
 import RandomItem from "./RandomItem";
-import { TypeDropChance } from "./types";
+import { DropChance } from "./types";
 
 export default class Droptable {
-   private dropTables: Array<TypeDropChance> = [];
+   private dropTables: Array<DropChance> = [];
    private random: Random;
 
    constructor(seed?: string) {
       this.random = new Random(seed);
    }
 
-   public getDropTables(): Array<TypeDropChance> {
+   public getDropTables(): Array<DropChance> {
       return this.dropTables;
    }
 
-   public addItemDrop(drop: TypeDropChance): Droptable {
+   public addItemDrop(drop: DropChance): Droptable {
       this.dropTables.push(drop);
       return this;
    }
 
    public drop(mandatory: boolean = false, itemQtyMax: number = 1): Array<Item> {
 
-      const dropTableClone = [...this.getDropTables()].sort((a: TypeDropChance, b: TypeDropChance) => b.chance - a.chance);
+      const dropTableClone = [...this.getDropTables()].sort((a: DropChance, b: DropChance) => b.chance - a.chance);
 
       const result: Array<Item> = [];
 

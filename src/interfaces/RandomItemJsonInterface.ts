@@ -1,16 +1,16 @@
-import { TypeChanceAttribute, TypeChanceMaterial, TypeChanceRarity, TypeChanceSlot, TypeChanceType, TypeRange } from "../drop/types";
+import { ChanceAttribute, ChanceMaterial, ChanceRarity, ChanceSlot, Range, ChanceType } from "../drop/types";
 
 interface RandomItemJsonInterface {
     seed?: string,
     name?: string;
-    itemLevel?: TypeRange | number;
-    quality?: TypeRange | number;
-    // items?: Array<TypeChanceItem>;
-    rarities?: Array<TypeChanceRarity>;
-    attributes?: Array<TypeChanceAttribute>;
-    materials?: Array<TypeChanceMaterial>;
-    slots?: Array<TypeChanceSlot>;
-    types?: Array<TypeChanceType>;
+    itemLevel?: Range | number;
+    quality?: Range | number;
+    // items?: Array<ChanceItem>;
+    rarities?: Array<ChanceRarity>;
+    attributes?: Array<ChanceAttribute>;
+    materials?: Array<ChanceMaterial>;
+    slots?: Array<ChanceSlot>;
+    types?: Array<ChanceType>;
 }
 
 export default RandomItemJsonInterface;
