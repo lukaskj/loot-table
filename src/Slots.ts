@@ -53,6 +53,11 @@ const SlotFinger: SlotInterface = {
   name: "Finger",
 };
 
+const SlotBelt: SlotInterface = {
+  code: "belt",
+  name: "Belt",
+};
+
 export {
   SlotInterface,
   SlotBack,
@@ -65,4 +70,5 @@ export {
   SlotTwoHand,
   SlotNeck,
   SlotFinger,
+  SlotBelt,
 };

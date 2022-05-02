@@ -45,18 +45,25 @@ const TypeRing: TypeInterface = {
   materials: [],
 };
 
-const TypeShield: TypeInterface = {
-  code: "shield",
-  name: "Shield",
-  slot: Slots.SlotHand,
-  materials: [Materials.MaterialMailPlate],
-};
-
 const TypeShoulder: TypeInterface = {
   code: "shoulder",
   name: "Shoulder",
   slot: Slots.SlotShoulder,
   materials: allMaterials,
+};
+
+const TypeBelt: TypeInterface = {
+  code: "belt",
+  name: "Belt",
+  slot: Slots.SlotShoulder,
+  materials: allMaterials,
+};
+
+const TypeShield: TypeInterface = {
+  code: "shield",
+  name: "Shield",
+  slot: Slots.SlotHand,
+  materials: [Materials.MaterialMailPlate],
 };
 
 const TypeSword: TypeInterface = {
@@ -66,4 +73,15 @@ const TypeSword: TypeInterface = {
   materials: [Materials.MaterialBronze],
 };
 
-export { TypeInterface, TypeCape, TypeChest, TypeFoot, TypeLegs, TypeRing, TypeShield, TypeShoulder, TypeSword };
+export {
+  TypeInterface,
+  TypeCape,
+  TypeChest,
+  TypeFoot,
+  TypeLegs,
+  TypeRing,
+  TypeShield,
+  TypeShoulder,
+  TypeBelt,
+  TypeSword,
+};
