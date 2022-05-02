@@ -1,0 +1,41 @@
+import { AttributeInterface } from "../Attributes";
+import { RandomItemJsonInterface } from "../interfaces/RandomItemJsonInterface";
+import Item from "../Item";
+import { MaterialInterface } from "../Materials";
+import { RarityInterface } from "../Rarities";
+import { SlotInterface } from "../Slots";
+import { TypeInterface } from "../Types";
+import { Chance, ChanceItem, Range } from "./types";
+export default class RandomItem {
+    private _name;
+    itemLevel: Range;
+    private _quality;
+    items: Array<ChanceItem>;
+    rarities: Array<Chance<RarityInterface>>;
+    attributes: Array<Chance<AttributeInterface>>;
+    materials: Array<Chance<MaterialInterface>>;
+    slots: Array<Chance<SlotInterface>>;
+    types: Array<Chance<TypeInterface>>;
+    get name(): string;
+    get quality(): Range;
+    setName(name: string): this;
+    setQuality(quality: Range | number): this;
+    private random;
+    constructor(seed?: string);
+    setItemLevel(itemLevel: Range | number): this;
+    private _addRarity;
+    addRarity(rarity: RarityInterface, chance: number): this;
+    private _addType;
+    addType(type: TypeInterface, chance: number): this;
+    private _addAttribute;
+    addAttribute(attribute: AttributeInterface, chance: number, value?: Range | number): this;
+    private _addMaterial;
+    addMaterial(material: MaterialInterface, chance: number): this;
+    private _addSlot;
+    addSlot(slot: SlotInterface, chance: number): this;
+    private _getPropertyByChance;
+    dropItem(): Item;
+    private dropRandomItem;
+    static fromJson(randomItem: RandomItemJsonInterface): RandomItem;
+}
+//# sourceMappingURL=RandomItem.d.ts.map

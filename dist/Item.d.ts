@@ -1,0 +1,47 @@
+import { AttributeInterface } from "./Attributes";
+import { MaterialInterface } from "./Materials";
+import { RarityInterface } from "./Rarities";
+import { SlotInterface } from "./Slots";
+import { TypeInterface } from "./Types";
+export default class Item {
+    private _id;
+    private _name;
+    private _code;
+    private _itemLevel;
+    private _quality;
+    private _type;
+    private _material;
+    private _rarity;
+    private _slot;
+    private _attributes;
+    private _baseAttributes;
+    private _roll;
+    get id(): string;
+    get name(): string;
+    get code(): string;
+    get itemLevel(): number;
+    get quality(): number;
+    get type(): TypeInterface;
+    get material(): MaterialInterface;
+    get rarity(): RarityInterface;
+    get slot(): SlotInterface;
+    get attributes(): Array<AttributeInterface>;
+    get baseAttributes(): Array<AttributeInterface>;
+    get roll(): number;
+    setId(id: string): Item;
+    setSlot(slot: SlotInterface): Item;
+    setRarity(rarity: RarityInterface): Item;
+    setMaterial(Material: MaterialInterface): Item;
+    setItemLevel(itemLevel: number): Item;
+    setQuality(quality: number): Item;
+    setType(type: TypeInterface): Item;
+    addAttribute(stat: AttributeInterface, value?: number): Item;
+    setAttributes(stats: Array<AttributeInterface>): Item;
+    setName(name: string): Item;
+    getName(): string;
+    getCode(): string;
+    setRoll(roll: number): Item;
+    getRoll(): number;
+    toJson(): unknown;
+}
+//# sourceMappingURL=Item.d.ts.map
