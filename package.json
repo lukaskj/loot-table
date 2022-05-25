@@ -8,8 +8,9 @@
    "scripts": {
       "prepublish": "yarn build",
       "prepare": "husky install",
+      "clean": "rimraf dist coverage",
       "start": "ts-node src/index.ts",
-      "build": "yarn lint && rm -rf dist/ && tsc",
+      "build": "yarn lint && yarn clean && tsc",
       "test": "npx jest --runInBand --config jest.config.js",
       "coverage": "jest --coverage",
       "lint": "yarn eslint . --ext .ts,.tsx",
@@ -37,6 +38,7 @@
       "husky": "^8.0.1",
       "jest": "^28.1.0",
       "prettier": "^2.6.2",
+      "rimraf": "^3.0.2",
       "ts-jest": "^28.0.3",
       "ts-loader": "^9.3.0",
       "ts-node": "^10.8.0",
