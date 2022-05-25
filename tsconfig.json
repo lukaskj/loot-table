@@ -1,6 +1,7 @@
 {
    "compilerOptions": {
       "target": "ES6",
+      "lib": ["es2017", "es7", "es6", "dom"],
       "outDir": "./dist/",
       "sourceRoot": "./src/",
       "rootDir": "./src",
@@ -26,6 +27,7 @@
    ],
    "exclude": [
       "node_modules",
-      "**/*.spec.ts"
+      "**/*.spec.ts",
+      "dist"
    ]
 }

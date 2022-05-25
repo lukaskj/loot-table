@@ -1,15 +1,16 @@
 {
-   "name": "item-drop-table",
+   "name": "@lukaskj/item-drop-table",
    "version": "1.0.0",
    "private": true,
    "license": "MIT",
    "main": "dist/index.js",
    "types": "dist/index.d.ts",
    "scripts": {
+      "prepublish": "yarn build",
       "prepare": "husky install",
       "start": "ts-node src/index.ts",
       "build": "yarn lint && rm -rf dist/ && tsc",
-      "test": "jest",
+      "test": "npx jest --runInBand --config jest.config.js",
       "coverage": "jest --coverage",
       "lint": "yarn eslint . --ext .ts,.tsx",
       "lint:fix": "yarn eslint . --ext .ts,.tsx --fix",
@@ -18,6 +19,10 @@
    },
    "files": [
       "dist/**/*"
+   ],
+   "exclude": [
+      "node_modules",
+      "dist"
    ],
    "devDependencies": {
       "@types/jest": "^27.4.1",
