@@ -1,7 +1,6 @@
 {
    "name": "@lukaskj/item-drop-table",
    "version": "1.0.0",
-   "private": true,
    "license": "MIT",
    "main": "dist/index.js",
    "types": "dist/index.d.ts",
