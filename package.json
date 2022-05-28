@@ -12,6 +12,7 @@
       "start": "ts-node src/index.ts",
       "build": "yarn lint && yarn clean && tsc",
       "test": "npx jest --runInBand --config jest.config.js",
+      "test:watch": "npx jest --runInBand --config jest.config.js --watch",
       "coverage": "jest --coverage",
       "lint": "yarn eslint . --ext .ts,.tsx",
       "lint:fix": "yarn eslint . --ext .ts,.tsx --fix",

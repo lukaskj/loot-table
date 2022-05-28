@@ -6,13 +6,18 @@ interface AttributeInterface extends Codeable, Rollable {
 }
 
 const AttributeStrength: AttributeInterface = {
-  code: "Strength",
+  code: "str",
   name: "Strength",
 };
 
+const AttributeIntelligence: AttributeInterface = {
+  code: "int",
+  name: "Intelligence",
+};
+
 const AttributeAttackSpeed: AttributeInterface = {
-  code: "agility",
-  name: "Agility",
+  code: "as",
+  name: "Attack Speed",
 };
 
 const AttributeArmor: AttributeInterface = {
@@ -31,13 +36,8 @@ const AttributeCritDamage: AttributeInterface = {
 };
 
 const AttributeHealth: AttributeInterface = {
-  code: "health",
+  code: "hp",
   name: "Health",
-};
-
-const AttributeIntelligence: AttributeInterface = {
-  code: "intelligence",
-  name: "Intelligence",
 };
 
 const AttributeManaRegen: AttributeInterface = {
