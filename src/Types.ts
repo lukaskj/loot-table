@@ -66,9 +66,23 @@ const TypeShield: TypeInterface = {
   materials: [Materials.MaterialMailPlate],
 };
 
-const TypeSword: TypeInterface = {
-  code: "sword",
-  name: "Sword",
+const TypeMeleeWeapon: TypeInterface = {
+  code: "melee-weapon",
+  name: "Melee Weapon",
+  slot: Slots.SlotHand,
+  materials: [Materials.MaterialBronze],
+};
+
+const TypeRangedWeapon: TypeInterface = {
+  code: "ranged-weapon",
+  name: "Ranged Weapon",
+  slot: Slots.SlotHand,
+  materials: [Materials.MaterialBronze],
+};
+
+const TypeMagicWeapon: TypeInterface = {
+  code: "magic-weapon",
+  name: "Magic Weapon",
   slot: Slots.SlotHand,
   materials: [Materials.MaterialBronze],
 };
@@ -83,5 +97,7 @@ export {
   TypeShield,
   TypeShoulder,
   TypeBelt,
-  TypeSword,
+  TypeMeleeWeapon,
+  TypeRangedWeapon,
+  TypeMagicWeapon,
 };
