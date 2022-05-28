@@ -8,8 +8,8 @@ type RandomIntOpt = {
 };
 
 export default class {
-  private seed: string;
-  private rndFnc: () => number;
+  private seed!: string;
+  private rndFnc!: () => number;
 
   constructor(seed?: string) {
     if (!!seed) {

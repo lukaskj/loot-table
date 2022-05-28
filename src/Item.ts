@@ -5,18 +5,18 @@ import { SlotInterface } from "./Slots";
 import { TypeInterface } from "./Types";
 
 export default class Item {
-  private _id: string;
-  private _name: string;
-  private _code: string;
-  private _itemLevel: number;
+  private _id!: string;
+  private _name!: string;
+  private _code!: string;
+  private _itemLevel!: number;
   private _quality: number = 100;
-  private _type: TypeInterface;
-  private _material: MaterialInterface;
-  private _rarity: RarityInterface;
-  private _slot: SlotInterface;
-  private _attributes: Array<AttributeInterface>;
-  private _baseAttributes: Array<AttributeInterface>;
-  private _roll: number;
+  private _type!: TypeInterface;
+  private _material!: MaterialInterface;
+  private _rarity!: RarityInterface;
+  private _slot!: SlotInterface;
+  private _attributes!: Array<AttributeInterface>;
+  private _baseAttributes!: Array<AttributeInterface>;
+  private _roll!: number;
 
   public get id(): string {
     return this._id;

@@ -2,7 +2,7 @@ module.exports = {
   clearMocks: true,
   transform: { "^.+\\.ts?$": "ts-jest" },
   testEnvironment: "node",
-  testRegex: "./tests/.*\\.(test|spec)?\\.(ts|tsx)$",
+  testRegex: "./test/.*\\.(test|spec)?\\.(ts|tsx)$",
   moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json", "node"],
   // Indicates which provider should be used to instrument code for coverage
   coverageProvider: "v8",

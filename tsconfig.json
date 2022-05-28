@@ -1,12 +1,12 @@
 {
    "compilerOptions": {
-      "target": "ES6",
+      "target": "es5",
       "lib": ["es2017", "es7", "es6", "dom"],
       "outDir": "./dist/",
-      "sourceRoot": "./src/",
       "rootDir": "./src",
       "module": "CommonJS",
-      "sourceMap": true,
+      "sourceMap": false,
+      "strict": true,
       "allowJs": true,
       "checkJs": true,
       "alwaysStrict": true,
@@ -15,7 +15,7 @@
       "preserveConstEnums": true,
       "esModuleInterop": false,
       "declaration": true,
-      "declarationMap": true,
+      "declarationMap": false,
       "resolveJsonModule": false,
       "pretty": false,
       "experimentalDecorators": true,
@@ -28,6 +28,7 @@
    "exclude": [
       "node_modules",
       "**/*.spec.ts",
-      "dist"
+      "dist",
+      "test"
    ]
 }

@@ -13,7 +13,7 @@ import { isNumber } from "../utils/Util";
 import { Chance, ChanceItem, Range } from "./types";
 
 export default class RandomItem {
-  private _name: string;
+  private _name!: string;
   public itemLevel: Range = { min: 0, max: 100 };
   private _quality: Range = { min: 0, max: 100 };
   public items: Array<ChanceItem> = [];
