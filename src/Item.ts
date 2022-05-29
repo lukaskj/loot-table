@@ -1,4 +1,5 @@
 import { AttributeInterface } from "./Attributes";
+import { ItemJsonInterface } from "./interfaces/json/ItemJsonInterface";
 import { MaterialInterface } from "./Materials";
 import { RarityInterface } from "./Rarities";
 import { SlotInterface } from "./Slots";
@@ -14,8 +15,8 @@ export default class Item {
   private _material!: MaterialInterface;
   private _rarity!: RarityInterface;
   private _slot!: SlotInterface;
-  private _attributes!: Array<AttributeInterface>;
-  private _baseAttributes!: Array<AttributeInterface>;
+  private _attributes: Array<AttributeInterface> = [];
+  private _baseAttributes: Array<AttributeInterface> = [];
   private _roll!: number;
 
   public get id(): string {
@@ -164,5 +165,20 @@ export default class Item {
         delete copy[k];
       });
     return copy;
+  }
+
+  public static fromJson(json: ItemJsonInterface): Item {
+    const item = new Item();
+    item
+      .setId(json.id)
+      .setName(json.name)
+      .setQuality(json.quality)
+      .setItemLevel(json.itemLevel)
+      .setAttributes(json.attributes)
+      .setRarity(json.rarity)
+      .setMaterial(json.material)
+      .setSlot(json.slot)
+      .setType(json.type);
+    return item;
   }
 }

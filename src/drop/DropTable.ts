@@ -1,6 +1,7 @@
-import { DropTableJsonInterface } from "../interfaces/DropTableJsonInterface";
+import { DropTableJsonInterface } from "../interfaces/json/DropTableJsonInterface";
 import Item from "../Item";
 import Random from "../utils/Random";
+import { isDropItemfromJson } from "../utils/Util";
 import RandomItem from "./RandomItem";
 import { DropChance } from "./types";
 
@@ -66,11 +67,18 @@ export default class DropTable {
     const dropTable: DropTable = new DropTable(dropTableJson.seed);
     dropTable.setMandatory(dropTableJson.mandatory ?? false);
     dropTable.setMaxItemQty(dropTableJson.itemQtyMax ?? 1);
-    for (const drop of dropTableJson.dropTables) {
-      dropTable.addItemDrop({
-        chance: drop.chance,
-        drop: RandomItem.fromJson(drop.item),
-      });
+    for (const drop of dropTableJson.dropTable) {
+      if (isDropItemfromJson(drop)) {
+        dropTable.addItemDrop({
+          chance: drop.chance,
+          drop: Item.fromJson(drop.item),
+        });
+      } else {
+        dropTable.addItemDrop({
+          chance: drop.chance,
+          drop: RandomItem.fromJson(drop.randomItem),
+        });
+      }
     }
     return dropTable;
   }

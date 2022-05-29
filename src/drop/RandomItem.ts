@@ -1,7 +1,7 @@
 import * as uuid from "uuid";
 import { AttributeInterface } from "../Attributes";
 import Codeable from "../interfaces/Codeable";
-import { RandomItemJsonInterface } from "../interfaces/RandomItemJsonInterface";
+import { RandomItemJsonInterface } from "../interfaces/json/RandomItemJsonInterface";
 import Rollable from "../interfaces/Rollable";
 import Item from "../Item";
 import { MaterialInterface } from "../Materials";
@@ -12,10 +12,12 @@ import Random from "../utils/Random";
 import { isNumber } from "../utils/Util";
 import { Chance, ChanceItem, Range } from "./types";
 
+const _itemName = Symbol("name");
+const _itemQuality = Symbol("quality");
 export default class RandomItem {
-  private _name!: string;
+  private [_itemName]!: string;
   public itemLevel: Range = { min: 0, max: 100 };
-  private _quality: Range = { min: 0, max: 100 };
+  private [_itemQuality]: Range = { min: 0, max: 100 };
   public items: Array<ChanceItem> = [];
   public rarities: Array<Chance<RarityInterface>> = [];
   public attributes: Array<Chance<AttributeInterface>> = [];
@@ -24,23 +26,23 @@ export default class RandomItem {
   public types: Array<Chance<TypeInterface>> = [];
 
   public get name(): string {
-    return this._name;
+    return this[_itemName];
   }
 
   public get quality(): Range {
-    return this._quality;
+    return this[_itemQuality];
   }
 
   public setName(name: string): this {
-    this._name = name;
+    this[_itemName] = name;
     return this;
   }
 
   public setQuality(quality: Range | number): this {
     if (isNumber(quality)) {
-      this._quality = { min: quality, max: quality };
+      this[_itemQuality] = { min: quality, max: quality };
     } else {
-      this._quality = quality;
+      this[_itemQuality] = quality;
     }
     return this;
   }
@@ -137,7 +139,7 @@ export default class RandomItem {
       item.setQuality(quality);
     }
 
-    if (this._name) {
+    if (this[_itemName]) {
       item.setName(this.name);
     }
 
