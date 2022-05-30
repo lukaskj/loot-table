@@ -22,8 +22,8 @@ describe("#Item", () => {
       type: faker.helpers.arrayElement([Types.TypeChest, Types.TypeLegs, Types.TypeFoot]) as Type,
       rarity: faker.helpers.arrayElement([Rarities.RarityLegendary, Rarities.RarityUncommon, Rarities.RarityRare]),
       attributes: [
-        new Attribute({ ...Attributes.AttributeArmor, value: faker.datatype.number({ min: 1, max: 100 }) }),
-        new Attribute({ ...Attributes.AttributeHealth, value: faker.datatype.number({ min: 1, max: 100 }) }),
+        { ...Attributes.AttributeArmor, value: faker.datatype.number({ min: 1, max: 100 }) },
+        { ...Attributes.AttributeHealth, value: faker.datatype.number({ min: 1, max: 100 }) },
       ],
     };
 

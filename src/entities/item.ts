@@ -23,8 +23,9 @@ export class Item extends Codeable {
     this.setAttributes(data.attributes ?? []);
   }
 
-  public addAttribute(newAttribute: Attribute, value?: number): Item {
-    const baseAttribute: Attribute = Object.assign({}, newAttribute);
+  public addAttribute(attribute: NonFunctionProperties<Attribute>, value?: number): Item {
+    const baseAttribute: Attribute = new Attribute(attribute);
+    const newAttribute: Attribute = new Attribute(attribute);
     if (!this.attributes) {
       this.attributes = [];
     }
@@ -46,7 +47,7 @@ export class Item extends Codeable {
     return this;
   }
 
-  public setAttributes(stats: Array<Attribute>): Item {
+  public setAttributes(stats: Array<NonFunctionProperties<Attribute>>): Item {
     this.attributes.splice(0, this.attributes.length);
     this.baseAttributes.splice(0, this.baseAttributes.length);
     stats.forEach((att) => this.addAttribute(att));
