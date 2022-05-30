@@ -3,32 +3,32 @@
       "target": "es5",
       "lib": ["es2017", "es7", "es6", "dom"],
       "outDir": "./dist/",
-      "rootDir": "./src",
       "module": "CommonJS",
-      "sourceMap": false,
-      "strict": true,
+      "sourceMap": true,
       "allowJs": true,
       "checkJs": true,
-      "alwaysStrict": true,
       "noImplicitAny": true,
+      "noImplicitReturns": true,
       "removeComments": true,
       "preserveConstEnums": true,
-      "esModuleInterop": false,
+      "esModuleInterop": true,
       "declaration": true,
       "declarationMap": false,
       "resolveJsonModule": false,
       "pretty": false,
       "experimentalDecorators": true,
       "moduleResolution": "node",
-      "strictNullChecks": true
+      "strict": true,
+      "strictNullChecks": true,
+      "alwaysStrict": true,
    },
    "include": [
-      "src/**/*.ts"
+      "src/**/*.ts",
+      "test"
    ],
    "exclude": [
       "node_modules",
       "**/*.spec.ts",
       "dist",
-      "test"
    ]
 }

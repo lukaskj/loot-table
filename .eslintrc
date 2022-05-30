@@ -15,12 +15,18 @@
     "project": ["./tsconfig.json", "./tsconfig.test.json"]
   },
   "rules": {
-    "no-console": 1,
+    "no-console": "warn",
     "semi": ["off"],
     "quotes": ["error", "double"],
     "@typescript-eslint/semi": ["error"],
     "@typescript-eslint/no-empty-interface": "off",
     "@typescript-eslint/no-inferrable-types": "off",
-    "no-extra-boolean-cast": "off"
+    "no-extra-boolean-cast": "off",
+    "@typescript-eslint/ban-types": "off",
+    "@typescript-eslint/explicit-function-return-type": "error",
+    "@typescript-eslint/interface-name-prefix": "off",
+    "@typescript-eslint/explicit-module-boundary-types": "off",
+    "@typescript-eslint/no-explicit-any": "error",
+    "@typescript-eslint/no-unused-vars": ["error", { "vars": "all", "argsIgnorePattern": "^_" }]
   }
 }

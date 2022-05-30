@@ -1,6 +1,6 @@
 {
    "name": "@lukaskj/item-drop-table",
-   "version": "1.0.0",
+   "version": "2.0.0",
    "license": "MIT",
    "main": "dist/index.js",
    "types": "dist/index.d.ts",
@@ -9,7 +9,7 @@
       "prepare": "husky install",
       "clean": "rimraf dist coverage",
       "start": "ts-node src/index.ts",
-      "build": "yarn lint && yarn clean && tsc",
+      "build": "yarn lint && yarn clean && tsc -p tsconfig.build.json",
       "test": "npx jest --runInBand --config jest.config.js",
       "test:watch": "npx jest --runInBand --config jest.config.js --watch",
       "coverage": "jest --coverage",
@@ -27,6 +27,7 @@
       "test"
    ],
    "devDependencies": {
+      "@faker-js/faker": "^7.1.0",
       "@types/jest": "^27.5.1",
       "@types/seedrandom": "^3.0.2",
       "@types/uuid": "^8.3.4",
@@ -46,6 +47,9 @@
       "typescript": "^4.7.2"
    },
    "dependencies": {
+      "class-transformer": "^0.5.1",
+      "class-validator": "^0.13.2",
+      "reflect-metadata": "^0.1.13",
       "seedrandom": "^3.0.5",
       "uuid": "^8.3.2"
    }

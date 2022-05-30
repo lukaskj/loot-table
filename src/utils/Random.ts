@@ -7,7 +7,7 @@ type RandomIntOpt = {
   inclusive?: boolean;
 };
 
-export default class {
+export class Random {
   private seed!: string;
   private rndFnc!: () => number;
 
