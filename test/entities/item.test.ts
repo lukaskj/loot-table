@@ -1,10 +1,11 @@
 import { describe, it, jest, beforeEach } from "@jest/globals";
 import { faker } from "@faker-js/faker";
+
 import { Item } from "../../src/entities/item";
 import { NonFunctionProperties } from "../../src/utils/non-function-properties";
 import { Attributes, Rarities, Types } from "../../src/predefined";
-import { Attribute } from "../../src/entities/attribute";
 import { Type } from "../../src/entities/type";
+import { calculateAttributes } from "../../src/utils/calculate-attributes";
 
 describe("#Item", () => {
   beforeEach(() => {
@@ -19,30 +20,23 @@ describe("#Item", () => {
       name: faker.name.jobTitle(),
       code: faker.datatype.uuid(),
       quality: faker.datatype.number({ min: 1, max: 100 }),
-      type: faker.helpers.arrayElement([Types.TypeChest, Types.TypeLegs, Types.TypeFoot]) as Type,
+      type: faker.helpers.arrayElement([Types.TypeChest, Types.TypeLegs, Types.TypeBoots]) as Type,
       rarity: faker.helpers.arrayElement([Rarities.RarityLegendary, Rarities.RarityUncommon, Rarities.RarityRare]),
       attributes: [
-        { ...Attributes.AttributeArmor, value: faker.datatype.number({ min: 1, max: 100 }) },
-        { ...Attributes.AttributeHealth, value: faker.datatype.number({ min: 1, max: 100 }) },
+        Attributes.AttributeArmor.withValue(faker.datatype.number({ min: 1, max: 100 })),
+        Attributes.AttributeHealth.withValue(faker.datatype.number({ min: 1, max: 100 })),
       ],
     };
 
     const baseAttributes = JSON.parse(JSON.stringify(data.attributes));
-
-    const attributes = baseAttributes.map(
-      (attr: NonFunctionProperties<Attribute>) =>
-        new Attribute({
-          ...attr,
-          value: ((attr.value || 0) * data.quality) / 100,
-        }),
-    );
+    const calculatedAttributes = calculateAttributes(baseAttributes, data.quality, data.rarity);
 
     const result = new Item(data);
 
     const expected = {
       ...data,
-      attributes,
-      baseAttributes,
+      attributes: calculatedAttributes.attributes,
+      baseAttributes: calculatedAttributes.baseAttributes,
     };
 
     expect(result).toEqual(expected);

@@ -8,4 +8,8 @@ export class Attribute extends Codeable {
     super(data);
     this.value = data.value;
   }
+
+  public withValue(value: number): Attribute {
+    return { ...this, value };
+  }
 }
