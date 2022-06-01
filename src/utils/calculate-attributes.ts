@@ -1,6 +1,8 @@
 import { Rarity } from "../entities/rarity";
 import { Attribute } from "../entities/attribute";
 import { NonFunctionProperties } from "./non-function-properties";
+import { IAttribute } from "../entities/types";
+import { isNumber } from "./is_number";
 
 type AttributeResult = {
   baseAttribute: Attribute;
@@ -13,7 +15,7 @@ type AttributesResult = {
 };
 
 export function calculateAttribute(
-  _attribute: NonFunctionProperties<Attribute>,
+  _attribute: IAttribute,
   itemQuality: number,
   rarity: NonFunctionProperties<Rarity>,
 ): AttributeResult {
@@ -22,8 +24,9 @@ export function calculateAttribute(
   const value = _attribute.value ?? 0;
   const qualityPercentage = itemQuality / 100;
   const rarityMultiplier = rarity.multiplier;
+  const _value: number = isNumber(value) ? value : value.min;
 
-  const newValue = value * qualityPercentage * rarityMultiplier;
+  const newValue = _value * qualityPercentage * rarityMultiplier;
 
   attribute.value = newValue;
 
@@ -34,7 +37,7 @@ export function calculateAttribute(
 }
 
 export function calculateAttributes(
-  attributes: NonFunctionProperties<Attribute>[],
+  attributes: IAttribute[],
   itemQuality: number,
   rarity: NonFunctionProperties<Rarity>,
 ): AttributesResult {

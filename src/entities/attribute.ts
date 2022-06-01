@@ -1,10 +1,11 @@
-import { NonFunctionProperties } from "../utils/non-function-properties";
+import { IRange } from "../interface/range-interface";
 import { Codeable } from "./abstract/codeable";
+import { IAttribute } from "./types";
 
 export class Attribute extends Codeable {
-  public value?: number = 0;
+  public value?: number | IRange = 0;
 
-  constructor(data: NonFunctionProperties<Attribute>) {
+  constructor(data: IAttribute) {
     super(data);
     this.value = data.value;
   }

@@ -2,8 +2,8 @@ import { beforeEach, describe, it, jest } from "@jest/globals";
 import crypto from "crypto";
 
 import { Item } from "../../src/entities/item";
+import { IItem } from "../../src/entities/types";
 import { calculateAttributes } from "../../src/utils/calculate-attributes";
-import { NonFunctionProperties } from "../../src/utils/non-function-properties";
 import { generateItem } from "../helpers/generate-item";
 
 describe("#Item", () => {
@@ -13,7 +13,7 @@ describe("#Item", () => {
   });
 
   it("Should create a valid Item instance", () => {
-    const data: NonFunctionProperties<Item> = generateItem();
+    const data: IItem = generateItem();
 
     const baseAttributes = JSON.parse(JSON.stringify(data.attributes));
     const calculatedAttributes = calculateAttributes(baseAttributes, data.quality, data.rarity);
@@ -33,7 +33,7 @@ describe("#Item", () => {
     const itemName = "Best item of all";
     const expectedItemCode = "best-item-of-all";
 
-    const data: NonFunctionProperties<Item> = generateItem({
+    const data: IItem = generateItem({
       name: itemName,
       code: null,
     });
@@ -57,7 +57,7 @@ describe("#Item", () => {
     const ITEM_ID = "111222333444";
     jest.spyOn(crypto, "randomUUID").mockReturnValue(ITEM_ID);
 
-    const data: NonFunctionProperties<Item> = generateItem({
+    const data: IItem = generateItem({
       name: null,
       code: null,
     });
@@ -82,7 +82,7 @@ describe("#Item", () => {
     const ITEM_ID = "111222333444";
     jest.spyOn(crypto, "randomUUID").mockReturnValue(ITEM_ID);
 
-    const data: NonFunctionProperties<Item> = generateItem({
+    const data: IItem = generateItem({
       id: null,
     });
 

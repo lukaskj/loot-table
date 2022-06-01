@@ -13,9 +13,9 @@ const TypeChest = new Type({
   slot: Slots.SlotChest,
 });
 
-const TypeFoot = new Type({
-  code: "foot",
-  name: "Foot",
+const TypeBoots = new Type({
+  code: "boots",
+  name: "Boots",
   slot: Slots.SlotFoot,
 });
 
@@ -70,7 +70,7 @@ const TypeMagicWeapon = new Type({
 export {
   TypeCape,
   TypeChest,
-  TypeFoot,
+  TypeBoots,
   TypeLegs,
   TypeRing,
   TypeShield,

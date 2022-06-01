@@ -1,14 +1,13 @@
 import { faker } from "@faker-js/faker";
 
-import { Item } from "../../src/entities/item";
 import { Type } from "../../src/entities/type";
+import { IItem } from "../../src/entities/types";
 import { Attributes, Rarities, Types } from "../../src/predefined";
-import { NonFunctionProperties } from "../../src/utils/non-function-properties";
 
-export function generateItem(data?: Partial<NonFunctionProperties<Item>>): NonFunctionProperties<Item> {
+export function generateItem(data?: Partial<IItem>): IItem {
   return {
     id: faker.datatype.uuid(),
-    itemLevel: faker.datatype.number({ min: 10, max: 1000 }),
+    level: faker.datatype.number({ min: 10, max: 1000 }),
     name: faker.name.jobTitle(),
     code: faker.datatype.uuid(),
     quality: faker.datatype.number({ min: 1, max: 100 }),
