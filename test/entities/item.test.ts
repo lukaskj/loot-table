@@ -1,11 +1,10 @@
-import { describe, it, jest, beforeEach } from "@jest/globals";
-import { faker } from "@faker-js/faker";
+import { beforeEach, describe, it, jest } from "@jest/globals";
+import crypto from "crypto";
 
 import { Item } from "../../src/entities/item";
-import { NonFunctionProperties } from "../../src/utils/non-function-properties";
-import { Attributes, Rarities, Types } from "../../src/predefined";
-import { Type } from "../../src/entities/type";
 import { calculateAttributes } from "../../src/utils/calculate-attributes";
+import { NonFunctionProperties } from "../../src/utils/non-function-properties";
+import { generateItem } from "../helpers/generate-item";
 
 describe("#Item", () => {
   beforeEach(() => {
@@ -14,19 +13,7 @@ describe("#Item", () => {
   });
 
   it("Should create a valid Item instance", () => {
-    const data: NonFunctionProperties<Item> = {
-      id: faker.datatype.uuid(),
-      itemLevel: faker.datatype.number({ min: 10, max: 1000 }),
-      name: faker.name.jobTitle(),
-      code: faker.datatype.uuid(),
-      quality: faker.datatype.number({ min: 1, max: 100 }),
-      type: faker.helpers.arrayElement([Types.TypeChest, Types.TypeLegs, Types.TypeBoots]) as Type,
-      rarity: faker.helpers.arrayElement([Rarities.RarityLegendary, Rarities.RarityUncommon, Rarities.RarityRare]),
-      attributes: [
-        Attributes.AttributeArmor.withValue(faker.datatype.number({ min: 1, max: 100 })),
-        Attributes.AttributeHealth.withValue(faker.datatype.number({ min: 1, max: 100 })),
-      ],
-    };
+    const data: NonFunctionProperties<Item> = generateItem();
 
     const baseAttributes = JSON.parse(JSON.stringify(data.attributes));
     const calculatedAttributes = calculateAttributes(baseAttributes, data.quality, data.rarity);
@@ -42,7 +29,76 @@ describe("#Item", () => {
     expect(result).toEqual(expected);
   });
 
-  it.todo("Should create a random uuid Item code if no code and no name is provided");
+  it("Should create an Item code based on Item name if no code and a name is provided", () => {
+    const itemName = "Best item of all";
+    const expectedItemCode = "best-item-of-all";
 
-  it.todo("Should create an Item code based on Item name if no code and name is provided");
+    const data: NonFunctionProperties<Item> = generateItem({
+      name: itemName,
+      code: null,
+    });
+
+    const baseAttributes = JSON.parse(JSON.stringify(data.attributes));
+    const calculatedAttributes = calculateAttributes(baseAttributes, data.quality, data.rarity);
+
+    const result = new Item(data);
+
+    const expected = {
+      ...data,
+      code: expectedItemCode,
+      attributes: calculatedAttributes.attributes,
+      baseAttributes: calculatedAttributes.baseAttributes,
+    };
+
+    expect(result).toEqual(expected);
+  });
+
+  it("Should create a random uuid Item code if no code and no name is provided", () => {
+    const ITEM_ID = "111222333444";
+    jest.spyOn(crypto, "randomUUID").mockReturnValue(ITEM_ID);
+
+    const data: NonFunctionProperties<Item> = generateItem({
+      name: null,
+      code: null,
+    });
+
+    const baseAttributes = JSON.parse(JSON.stringify(data.attributes));
+    const calculatedAttributes = calculateAttributes(baseAttributes, data.quality, data.rarity);
+
+    const result = new Item(data);
+
+    const expected = {
+      ...data,
+      code: ITEM_ID,
+      attributes: calculatedAttributes.attributes,
+      baseAttributes: calculatedAttributes.baseAttributes,
+    };
+
+    expect(result).toEqual(expected);
+    expect(crypto.randomUUID).toHaveBeenCalled();
+  });
+
+  it("Should create an Item ID based on Item name if no id and name is provided", () => {
+    const ITEM_ID = "111222333444";
+    jest.spyOn(crypto, "randomUUID").mockReturnValue(ITEM_ID);
+
+    const data: NonFunctionProperties<Item> = generateItem({
+      id: null,
+    });
+
+    const baseAttributes = JSON.parse(JSON.stringify(data.attributes));
+    const calculatedAttributes = calculateAttributes(baseAttributes, data.quality, data.rarity);
+
+    const result = new Item(data);
+
+    const expected = {
+      ...data,
+      id: ITEM_ID,
+      attributes: calculatedAttributes.attributes,
+      baseAttributes: calculatedAttributes.baseAttributes,
+    };
+
+    expect(result).toEqual(expected);
+    expect(crypto.randomUUID).toHaveBeenCalled();
+  });
 });

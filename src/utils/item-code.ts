@@ -1,4 +1,4 @@
-import { v4 } from "uuid";
+import { randomUUID } from "crypto";
 
 import { isNullOrUndefined } from "./is-null-or-undefined";
 import { toDashCase } from "./to-dash-case";
@@ -11,7 +11,7 @@ export function generateCode(code: string | null, name: string | null): string {
     if (!isNullOrUndefined(name)) {
       newCode = toDashCase(name);
     } else {
-      newCode = v4();
+      newCode = randomUUID();
     }
   }
   return newCode;

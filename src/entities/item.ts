@@ -1,3 +1,4 @@
+import { randomUUID } from "crypto";
 import { calculateAttribute } from "../utils/calculate-attributes";
 import { NonFunctionProperties } from "../utils/non-function-properties";
 import { Codeable } from "./abstract/codeable";
@@ -6,7 +7,7 @@ import { Rarity } from "./rarity";
 import { Type } from "./type";
 
 export class Item extends Codeable {
-  public id: string;
+  public id: string | null;
   public itemLevel: number;
   public quality: number = 100;
   public rarity: Rarity;
@@ -16,7 +17,7 @@ export class Item extends Codeable {
 
   constructor(data: NonFunctionProperties<Item>) {
     super(data);
-    this.id = data.id;
+    this.id = data.id ?? randomUUID();
     this.itemLevel = data.itemLevel;
     this.quality = data.quality;
     this.rarity = data.rarity;

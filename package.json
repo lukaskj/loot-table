@@ -15,8 +15,8 @@
       "test:cov": "npx jest --runInBand --config jest.config.js --coverage",
       "lint": "yarn eslint . --ext .ts,.tsx",
       "lint:fix": "yarn eslint . --ext .ts,.tsx --fix",
-      "pre-commit": "yarn lint",
-      "pre-push": "yarn build && yarn test"
+      "pre-commit": "yarn lint:fix",
+      "pre-push": "yarn test"
    },
    "files": [
       "dist/**/*"
@@ -50,7 +50,6 @@
       "class-transformer": "^0.5.1",
       "class-validator": "^0.13.2",
       "reflect-metadata": "^0.1.13",
-      "seedrandom": "^3.0.5",
-      "uuid": "^8.3.2"
+      "seedrandom": "^3.0.5"
    }
 }
