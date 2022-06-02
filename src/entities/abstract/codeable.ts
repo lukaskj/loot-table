@@ -11,6 +11,14 @@ export class Codeable implements IRollable {
 
   constructor(data: NonFunctionProperties<Codeable>) {
     this.name = data.name;
+    this.seed = data.seed;
+    this.roll = data.roll;
+    this.chance = data.chance;
     this.code = generateCode(data.code, data.name);
+  }
+
+  public withChance(chance: number): this {
+    this.chance = chance;
+    return this;
   }
 }

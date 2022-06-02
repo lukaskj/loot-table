@@ -11,6 +11,10 @@ export class Attribute extends Codeable {
   }
 
   public withValue(value: number): Attribute {
-    return { ...this, value };
+    return new Attribute({ ...this, value });
+  }
+
+  public withRange(value: IRange): Attribute {
+    return new Attribute({ ...this, value });
   }
 }
