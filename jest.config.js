@@ -11,9 +11,6 @@ module.exports = {
   coverageReporters: ["json", "text", "lcov", "clover"],
   // The maximum amount of workers used to run your tests. Can be specified as % or a number. E.g. maxWorkers: 10% will use 10% of your CPU amount + 1 as the maximum worker number. maxWorkers: 2 will use a maximum of 2 workers.
   maxWorkers: "50%",
-  testPathIgnorePatterns: ["\\\\node_modules\\\\"],
-  watchPathIgnorePatterns: [
-    "\\\\node_modules\\\\",
-    "node_modules"
-  ],
+  testPathIgnorePatterns: ["\\\\node_modules\\\\", "dist"],
+  watchPathIgnorePatterns: ["\\\\node_modules\\\\", "dist", "node_modules"],
 };

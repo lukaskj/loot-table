@@ -11,6 +11,14 @@
       "runtimeArgs": ["--inspect", "${workspaceRoot}/node_modules/jest/bin/jest.js", "--runInBand", "--coverage", "false"],
       "console": "integratedTerminal",
       "internalConsoleOptions": "neverOpen"
+    },
+    {
+      "name": "Debug Jest Tests - specific",
+      "type": "node",
+      "request": "launch",
+      "runtimeArgs": ["--inspect", "${workspaceRoot}/node_modules/jest/bin/jest.js", "--runInBand", "--coverage", "false", "test/entities/random-item.test.ts"],
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen"
     }
   ]
 }
