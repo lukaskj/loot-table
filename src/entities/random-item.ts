@@ -42,13 +42,14 @@ export class RandomItem extends Codeable {
 
     const maxAttributeCount = rarity.attributeCount;
     const attributesToAdd: IAttribute[] = [];
+    const attrCopy = [...this.attributes];
 
     for (let i = 0; i < maxAttributeCount; i++) {
-      if (!this.attributes.length) {
+      if (!attrCopy.length) {
         break;
       }
 
-      const attribute = this.rollProperty(this.attributes, i !== 0);
+      const attribute = this.rollProperty(attrCopy, i !== 0);
       let value: number;
       if (isNumber(attribute.value)) {
         value = attribute.value;
@@ -57,9 +58,9 @@ export class RandomItem extends Codeable {
       }
       attribute.value = value;
       attributesToAdd.push({ ...attribute });
-      const indx = this.attributes.indexOf(attribute);
+      const indx = attrCopy.indexOf(attribute);
       if (indx >= 0) {
-        this.attributes.splice(indx, 1);
+        attrCopy.splice(indx, 1);
       }
     }
 
@@ -68,7 +69,7 @@ export class RandomItem extends Codeable {
       name: this.name,
       chance: this.chance,
       seed: this.seed,
-      code: null,
+      code: this.code,
       level,
       quality,
       rarity: new Rarity(rarity),
