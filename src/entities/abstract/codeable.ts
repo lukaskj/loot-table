@@ -3,11 +3,11 @@ import { generateCode } from "../../utils/item-code";
 import { NonFunctionProperties } from "../../utils/non-function-properties";
 
 export class Codeable implements IRollable {
-  public code: string | null;
-  public name: string | null;
+  public code: string;
+  public name: string;
   public seed?: string;
-  public roll?: number;
-  public chance?: number;
+  public roll?: number = -1;
+  public chance?: number = -1;
 
   constructor(data: NonFunctionProperties<Codeable>) {
     this.name = data.name;

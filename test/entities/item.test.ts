@@ -36,7 +36,7 @@ describe("Entities", () => {
 
       const data: IItem = generateItem({
         name: itemName,
-        code: null,
+        code: null as unknown as string,
       });
 
       const baseAttributes = JSON.parse(JSON.stringify(data.attributes));
@@ -59,8 +59,8 @@ describe("Entities", () => {
       jest.spyOn(crypto, "randomUUID").mockReturnValue(ITEM_ID);
 
       const data: IItem = generateItem({
-        name: null,
-        code: null,
+        name: null as unknown as string,
+        code: null as unknown as string,
       });
 
       const baseAttributes = JSON.parse(JSON.stringify(data.attributes));
