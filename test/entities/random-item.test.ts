@@ -7,7 +7,7 @@ import { Rarity } from "../../src/entities/rarity";
 import { Type } from "../../src/entities/type";
 import { IItem } from "../../src/entities/types";
 import { Attributes, Rarities, Types } from "../../src/predefined";
-import { calculateAttributes } from "../../src/utils/calculate-attributes";
+import { calculateAttribute, calculateAttributes } from "../../src/utils/calculate-attributes";
 import { generateRandomItem } from "../helpers/item-fixture";
 
 const SEED = "666";
@@ -69,13 +69,26 @@ describe("Entities", () => {
       expect(item).toMatchObject(expected);
     });
 
-    test.skip("Generate random item attribute with predefined value (not range)", () => {
-      const data = generateRandomItem({ seed: SEED, attributes: [Attributes.AttributeArmor.withValue(50)] });
+    test("Generate random item attribute with predefined value (not range)", () => {
+      // given
+      const attributeValue = Number(faker.random.numeric(3));
+      const data = generateRandomItem({
+        seed: SEED,
+        attributes: [Attributes.AttributeArmor.withValue(attributeValue)],
+      });
+
+      // when
       const randomItem = new RandomItem(data);
       const item = randomItem.generateItem();
-      const expected = {};
+      const attr = Attributes.AttributeArmor.withValue(attributeValue);
+      const calculatedAttr = calculateAttribute(attr, item.quality, item.rarity);
+      delete calculatedAttr.attribute.seed;
+      delete calculatedAttr.attribute.roll;
+      const expected = calculatedAttr.attribute;
 
-      expect(item).toEqual(expected);
+      // then
+      expect(item).not.toBeNull();
+      expect(item.attributes).toEqual(expect.arrayContaining([expect.objectContaining(expected)]));
     });
   });
 });
