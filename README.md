@@ -1,4 +1,4 @@
-# item-drop-table
+# item-loot-table
 
 ## Features
 - Generate fully random item;
