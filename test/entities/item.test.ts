@@ -102,5 +102,25 @@ describe("Entities", () => {
       expect(result).toEqual(expected);
       expect(crypto.randomUUID).toHaveBeenCalled();
     });
+
+    it("Should create an item from JSON definition", () => {
+      // given
+      const itemJsonObject: IItem = generateItem();
+
+      // when
+      const generatedItem = Item.fromJson(itemJsonObject);
+      const baseAttributes = JSON.parse(JSON.stringify(generatedItem.attributes));
+      const calculatedAttributes = calculateAttributes(baseAttributes, generatedItem.quality, generatedItem.rarity);
+
+      const expected = {
+        ...itemJsonObject,
+        attributes: calculatedAttributes.attributes,
+        baseAttributes: calculatedAttributes.baseAttributes,
+      };
+
+      // then
+      expect(generatedItem).not.toBeNull();
+      expect(generatedItem).toMatchObject(expected);
+    });
   });
 });
