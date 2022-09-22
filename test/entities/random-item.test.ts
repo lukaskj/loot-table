@@ -8,7 +8,7 @@ import { Type } from "../../src/entities/type";
 import { IItem } from "../../src/entities/types";
 import { Attributes, Rarities, Types } from "../../src/predefined";
 import { calculateAttribute, calculateAttributes } from "../../src/utils/calculate-attributes";
-import { generateRandomItem } from "../helpers/item-fixture";
+import { generateRandomItemObject } from "../helpers/item-fixture";
 
 const SEED = "666";
 
@@ -20,7 +20,7 @@ describe("Entities", () => {
     });
 
     test("Random item instance", () => {
-      const data = generateRandomItem({ seed: SEED });
+      const data = generateRandomItemObject({ seed: SEED });
       const randomItem = new RandomItem(data);
 
       expect(randomItem).toMatchObject(data);
@@ -38,7 +38,7 @@ describe("Entities", () => {
         str: 95,
       };
 
-      const data = generateRandomItem({ seed: SEED });
+      const data = generateRandomItemObject({ seed: SEED });
       const randomItem = new RandomItem(data);
       const item = randomItem.generateItem();
 
@@ -72,7 +72,7 @@ describe("Entities", () => {
     test("Generate random item attribute with predefined value (not range)", () => {
       // given
       const attributeValue = Number(faker.random.numeric(3));
-      const data = generateRandomItem({
+      const data = generateRandomItemObject({
         seed: SEED,
         attributes: [Attributes.AttributeArmor.withValue(attributeValue)],
       });

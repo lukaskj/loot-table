@@ -22,7 +22,7 @@ export function generateItem(data?: Partial<IItem>): IItem {
   };
 }
 
-export function generateRandomItem(data?: Partial<IRandomItem>): IRandomItem {
+export function generateRandomItemObject(data?: Partial<IRandomItem>): IRandomItem {
   const minAttributeValue = 10;
   const maxAttributeValue = 150;
 
