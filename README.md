@@ -1,4 +1,4 @@
-# item-loot-table
+# loot-table
 
 ## Features
 - Generate fully random item;
@@ -10,3 +10,9 @@
 Generate random item
 ```js
 ```
+
+## TODO
+
+[ ] Schema validation
+
+[ ] Name generation
